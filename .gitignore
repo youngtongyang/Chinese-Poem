@@ -1,0 +1,23 @@
+# 调试/临时产物（截图跑完就删，不入库）
+vp_*.png
+live_*.png
+notes_top.png
+notes_bottom.png
+mobile_bottom.png
+test_*.png
+shot_*.png
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# 系统
+.DS_Store
+Thumbs.db
+
+# 环境变量（密钥绝不入库）
+.env
+.env.*
+!.env.example
