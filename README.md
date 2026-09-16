@@ -4,6 +4,10 @@ AI 出图 + 纯 HTML/CSS 合成的国风古诗展示页面。单文件、无依�
 
 **技术栈**：Doubao-Seedream 5.0（AI 出图） + CSS 竖排排版 + 原生 JS 物理引擎
 
+> 🎋 **在线预览**：<https://youngtongyang.github.io/Chinese-Poem/>
+>
+> 无需克隆、无需部署，点开即看。支持拖拽诗句（松手会像柳枝一样荡回原位）。
+
 ![桌面效果](docs/screenshots/desktop.png)
 
 ## 快速开始
