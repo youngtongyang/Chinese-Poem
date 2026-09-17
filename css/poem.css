@@ -67,9 +67,13 @@ body {
   background-size: 118% auto;
   background-position: 58% 34%;
   background-repeat: no-repeat;
-  opacity: .92;
+  opacity: 0;
   mix-blend-mode: multiply;
-  animation: kenburns 38s ease-in-out infinite alternate;
+}
+.art.is-ready {
+  opacity: .92;
+  transition: opacity 1.05s ease;
+  animation: kenburns 38s ease-in-out 0.2s infinite alternate;
 }
 .stage.no-art .art { display: none; animation: none; }
 @keyframes kenburns {
@@ -208,7 +212,10 @@ body {
 /* ══ 右区：竖排诗句 ═══════════════════════════════════ */
 .right-panel {
   flex: 1;
-  padding: 8.2% 5.2% 0 0;
+  min-height: 0;
+  padding: 5.2% 5.2% 0 0;
+  /* 底部留给作者卡，避免七言最后一字贴住卡片 */
+  padding-bottom: clamp(200px, 26vh, 256px);
   display: flex; flex-direction: column; align-items: flex-end;
   justify-content: flex-start;
 }
@@ -224,12 +231,15 @@ body {
   gap: clamp(8px, 1.15vw, 22px);
 }
 .poem.is-lushi .line {
-  font-size: clamp(15px, 1.55vw, 26px);
+  font-size: clamp(17px, 1.85vw, 32px);
   letter-spacing: .22em;
 }
+.stage.is-wuyan .poem.is-lushi {
+  gap: clamp(12px, 1.7vw, 32px);
+}
 .stage.is-wuyan .poem.is-lushi .line {
-  font-size: clamp(16px, 1.7vw, 28px);
-  letter-spacing: .20em;
+  font-size: clamp(24px, 2.55vw, 42px);
+  letter-spacing: .28em;
 }
 .stage.title-xlong .poem.is-lushi {
   gap: clamp(7px, 1.05vw, 18px);
@@ -255,15 +265,24 @@ body {
   writing-mode: vertical-rl;     /* 单行竖排 */
   text-orientation: upright;
   font-size: clamp(22px, 2.35vw, 40px);
-  letter-spacing: .30em;
+  letter-spacing: .22em;
   color: var(--ink);
   font-weight: 500;
+  opacity: 0;                    /* 等 ink-in 再出场，避免先闪一字再播动画 */
   text-shadow: 0 1px 0 rgba(255,255,255,.45), 0 2px 10px rgba(140,110,70,.16);
   pointer-events: none;          /* 事件交给 .col 处理 */
 }
 /* 入场浮现动画（用 class 控制，避免与拖拽 transform 冲突） */
 .line.ink-in {
+  opacity: 1;
   animation: inkIn .88s cubic-bezier(.22,.68,.36,1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .line.ink-in,
+  .author-card,
+  .art { animation: none !important; }
+  .line.ink-in,
+  .author-card { opacity: 1 !important; filter: none !important; transform: none !important; }
 }
 .col:nth-child(1) .line.ink-in { animation-delay: .35s; }
 .col:nth-child(2) .line.ink-in { animation-delay: .95s; }
@@ -324,6 +343,7 @@ body {
 @media (max-height: 780px) and (min-width: 901px) {
   .author-card { bottom: 3%; margin-bottom: 46px; }
   .gloss { bottom: 2.5%; }
+  .right-panel { padding-top: 4%; padding-bottom: clamp(188px, 34vh, 240px); }
 }
 @keyframes cardIn {
   from { opacity: 0; transform: translateY(14px); }
@@ -529,8 +549,8 @@ body {
   .art {
     background-size: cover;
     background-position: 62% 18%;
-    opacity: .85;
   }
+  .art.is-ready { opacity: .85; }
   /* 竖版：上下渐隐，中部留白给文字 */
   .art-veil {
     background:
@@ -690,6 +710,10 @@ body {
     font-size: clamp(18px, 5.4vw, 28px);
     letter-spacing: .22em;
   }
+  .stage.is-wuyan .poem.is-lushi .line {
+    font-size: clamp(22px, 6.4vw, 34px);
+    letter-spacing: .26em;
+  }
   /* 入场动画延迟缩短（小屏等待感太强） */
   .col:nth-child(1) .line.ink-in { animation-delay: .08s; }
   .col:nth-child(2) .line.ink-in { animation-delay: .18s; }
@@ -811,6 +835,7 @@ body {
   .line { font-size: clamp(19px, 6.6vw, 27px); letter-spacing: .22em; }
   .poem { gap: clamp(6px, 2.6vw, 16px); }
   .poem.is-lushi .line { font-size: clamp(16px, 5.2vw, 22px); }
+  .stage.is-wuyan .poem.is-lushi .line { font-size: clamp(19px, 6vw, 26px); }
   .author-card { margin: 0 4vw calc(72px + env(safe-area-inset-bottom, 0px)); padding: 12px; }
   .author-desc { font-size: 11.5px; }
 }

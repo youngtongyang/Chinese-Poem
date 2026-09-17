@@ -285,6 +285,29 @@ function startInk() {
   document.querySelectorAll('.line').forEach(el => el.classList.add('ink-in'));
 }
 
+function revealSequence(poem) {
+  const art = document.getElementById('art');
+  const src = poem.art && poem.art.src;
+  let started = false;
+  function go() {
+    if (started) return;
+    started = true;
+    requestAnimationFrame(function () {
+      if (src && art) art.classList.add('is-ready');
+      window.setTimeout(startInk, src ? 380 : 60);
+    });
+  }
+  if (!src) {
+    go();
+    return;
+  }
+  const im = new Image();
+  im.onload = go;
+  im.onerror = go;
+  im.src = src;
+  if (im.complete) go();
+}
+
 function bindChrome() {
   document.getElementById('notesToggle').onclick = openNotes;
   document.getElementById('notesClose').onclick  = closeNotes;
@@ -381,8 +404,7 @@ function bindChrome() {
   bindPhysics();
   bindPointerWind();
   bindChrome();
-  window.addEventListener('load', startInk);
-  if (document.readyState === 'complete') startInk();
+  revealSequence(poem);
   console.log('%c《' + poem.title + '》古诗页面已就绪', 'color:#9c3b2e;font-size:15px;font-weight:bold');
   console.log('按 H 隐藏工具列 ｜ 按 Esc 关闭讲解');
 })();
