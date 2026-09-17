@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="favicon.png">
+<title>古诗</title>
+<link rel="stylesheet" href="css/poem.css">
+</head>
+<body>
+
+<div class="stage" id="stage">
+
+  <div class="art" id="art"></div>
+  <div class="art-veil"></div>
+
+  <div class="content">
+
+    <div class="left-panel">
+      <div class="title-block">
+        <div class="title-sub" id="titleSub"></div>
+        <div class="title-main" id="titleMain"></div>
+      </div>
+      <div class="byline">
+        <div class="author-line" id="authorLine"></div>
+        <div class="seal" id="seal" title="印章"></div>
+      </div>
+
+      <div class="side-links">
+        <a class="map-back" id="mapBack" href="map.html">返回地图</a>
+        <div class="notes-toggle" id="notesToggle">讲 解</div>
+      </div>
+    </div>
+
+    <div class="right-panel">
+      <div class="poem is-jueju" id="poem"></div>
+    </div>
+
+  </div>
+
+  <div class="gloss" id="gloss"></div>
+
+  <div class="author-card" id="authorCard">
+    <img id="authorPortrait" alt="" hidden>
+    <div class="author-meta">
+      <div class="author-name" id="authorName"></div>
+      <div class="author-dates" id="authorDates"></div>
+      <div class="author-desc" id="authorDesc"></div>
+      <div class="author-works" id="authorWorks"></div>
+    </div>
+  </div>
+
+  <div class="notes-panel" id="notesPanel">
+    <button class="notes-close" id="notesClose">✕ 关闭</button>
+    <div class="notes-inner">
+      <div class="notes-title" id="notesTitle">讲解</div>
+      <div class="notes-grid" id="notesGrid"></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="toolbar" id="toolbar">
+  <a id="toolbarMap" href="map.html">← 返回地图</a>
+  <button id="btnReplay">↻ 重播动画</button>
+  <button id="btnNotes">📖 讲解</button>
+  <button id="btnShot">⬇ 导出图片</button>
+  <button id="btnHide">👁 隐藏工具列 (H)</button>
+</div>
+
+<script src="data/catalog.js"></script>
+<script src="js/poem.js"></script>
+</body>
+</html>

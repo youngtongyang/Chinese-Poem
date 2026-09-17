@@ -1,6 +1,6 @@
 # 中国古诗词展示页面 · Chinese Poem Page
 
-AI 出图 + 纯 HTML/CSS 合成的国风古诗展示。含诗页与诗文文化地图，无构建依赖，浏览器打开即用。
+AI 出图 + 纯 HTML/CSS 合成的国风古诗展示。含诗文文化地图与诗页模板，无构建依赖，浏览器打开即用。地点先看风土、再进诗；诗句、作者、讲解都从一份目录读取。
 
 **技术栈**：Doubao-Seedream 5.0（AI 出图） + CSS 竖排排版 + 原生 JS 物理引擎
 
@@ -17,16 +17,18 @@ git clone https://github.com/youngtongyang/Chinese-Poem.git
 cd Chinese-Poem
 
 # 方式一：直接打开（无需构建）
-open index.html          # macOS
-xdg-open index.html      # Linux
+open map.html            # macOS，诗文地图（推荐入口）
+xdg-open map.html        # Linux
 
 # 方式二：起本地服务（推荐，避免某些浏览器的 file:// 限制）
 python3 -m http.server 8899
-# → http://localhost:8899              古诗页
-# → http://localhost:8899/map.html     诗文地图
+# → http://localhost:8899/map.html                              诗文地图
+# → http://localhost:8899/poem.html?id=wang-lushan-pubu         《望庐山瀑布》
+# → http://localhost:8899                                       兼容入口，跳到庐山诗
 ```
 
 **交互**：
+- 点地图上的地点 → 先开风土侧栏，再从诗列表进入诗页
 - 鼠标拖动任意一列诗句 → 跟手弯曲、松手后惯性甩动、被「微风」接管轻柔回位
 - 静置时诗句永不停止地轻摆（「春风拂柳」模型，4 列相位错开形成柳浪）
 - 点「讲解」按钮展开赏析面板
@@ -59,8 +61,14 @@ python3 -m http.server 8899
 
 ```
 Chinese-Poem/
-├── index.html              # ★ 古诗页（单文件）
-├── map.html                # ★ 诗文文化地图（现标注庐山）
+├── map.html                # ★ 诗文文化地图（推荐入口）
+├── poem.html               # ★ 诗页模板，按 ?id= 渲染
+├── index.html              #   兼容跳转 → poem.html?id=wang-lushan-pubu
+├── data/catalog.js         # ★ 地点 / 诗 / 作者目录（加诗只改这里）
+├── css/poem.css            #   诗页样式（绝句 4 列 / 律诗 8 列）
+├── css/map.css             #   地图与风土侧栏
+├── js/poem.js              #   诗页渲染 + 物理引擎
+├── js/map.js               #   地点钉、索引、风土面板
 ├── assets/                 # 插画素材
 │   ├── main2.jpeg          #   主插画（庐山瀑布 + 紫烟）★ 采用这版
 │   ├── main.jpeg           #   主插画备选版
@@ -76,26 +84,19 @@ Chinese-Poem/
 └── LICENSE                 # MIT
 ```
 
-**只有 `index.html` + `map.html` + `assets/` 是运行必需的**，其余都是开发/验证工具。
+**运行必需**：`map.html` + `poem.html` + `data/` + `css/` + `js/` + `assets/`。`index.html` 只为旧链接跳转。其余是开发/验证工具。
 
 ## 二、如何修改成其他诗
 
-编辑 `index.html` 中这几处：
+编辑 [`data/catalog.js`](data/catalog.js)，不要复制 HTML：
 
-1. **标题**（约 428 行）：`<div class="title-sub">` 和 `<div class="title-main">`
-2. **作者落款**：`<div class="author-line">`
-3. **诗句**（4 个 `.col`）：每列一句
-   ```html
-   <div class="col"><div class="line">第一句</div></div>
-   <div class="col"><div class="line">第二句</div></div>
-   <div class="col"><div class="line">第三句</div></div>
-   <div class="col"><div class="line">第四句</div></div>
-   ```
-4. **作者卡**：`<div class="author-card">` 内的姓名/生卒/简介
-5. **讲解面板**：`<div class="notes-grid">` 内的 `.note-item` 任意增减
-6. **插画**：替换 `assets/main2.jpeg`，或改 `.art` 的 `background-image`
+1. **地点** `places[]`：`id`、`name`、`region`、`map.x/y`（红点坐标）、`map.label`（外侧卡片锚点，可含 `side: right|left|top|bottom`）、`map.card`（引线外侧水墨小图路径）、`culture`（风土短文，和诗页讲解分开）
+2. **诗** `poems[]`：`id`、`placeId`、`title`、`dynasty`、`form`、`authorId`、`lines[]`（4 句绝句或 8 句律诗）、`gloss`、`notes`、`art`
+3. **作者** `authors[]`：生卒、简介、`seal` 四字、可选 `portrait`
 
-**换图后无需改代码**，样式自适应（`background-size: 118% auto` 会自动裁切）。
+保存后刷新地图和 `poem.html?id=你的诗id` 即可。洞庭三首目前没有专属插画，诗页会走宣纸底；有图后再把 `art.src` 填上。
+
+律诗在桌面是 8 列单排、字号略收；手机两排四列，仍从右往左读。物理引擎按 `.col` 数量循环，加句不必改模型。
 
 ---
 
@@ -124,7 +125,7 @@ python3 gen_images.py --n 1
 **模型**：`doubao-seedream-5-0-lite-260128`
 **注意**：5.0 版本最小尺寸限制 **3686400 像素**（≈1920x1920），低于此值报 `InvalidParameter`。地图默认 `2560x1440`，其余默认 `2048x2048`。
 
-地图页 **不做出图也能用**：`map.html` 自带中国轮廓与地点标注（现为庐山）。AI 底图只负责宣纸山水氛围。
+地图页 **不做出图也能用**：`map.html` 自带中国轮廓，地点钉从 `data/catalog.js` 生成。AI 底图只负责宣纸山水氛围。
 
 ---
 
@@ -222,7 +223,7 @@ timeout 8 bash -c 'echo > /dev/tcp/<公网IP>/80' && echo "80 可达" || echo "8
 sudo bash deploy.sh          # 一键发布 + 校验 + 验证
 ```
 
-发布脚本会：拷 `index.html` + `map.html` + `assets` + `favicon` → `/var/www/poem/`，
+发布脚本会：拷 `index.html` + `map.html` + `poem.html` + `css` + `js` + `data` + `assets` + `favicon` → `/var/www/poem/`，
 设 `nginx:nginx` 属主 → `nginx -t` → `nginx -s reload` → curl 验证。
 
 ### ⚠️ 关键坑：目录权限
@@ -261,7 +262,7 @@ journalctl -u cloudflared-poem --no-pager | grep -oE "https://[a-z0-9-]+\.tryclo
 
 ## 八、字体：简体宋体
 
-**字体栈**（`index.html` 的 `body`）：
+**字体栈**（`css/poem.css` / `css/map.css` 的 `body`）：
 ```css
 font-family: 'SimSun', '宋体', 'Songti SC', 'STSong',
              'Noto Serif CJK SC', 'Noto Serif SC', serif;
@@ -287,10 +288,11 @@ font-family: 'SimSun', '宋体', 'Songti SC', 'STSong',
 | 操作 | 效果 |
 |---|---|
 | 点「📖 讲解」 | 展开赏析面板 |
+| 在地图上点地点 / 右侧索引 | 打开风土人情侧栏，再从诗列表进入诗页 |
 | 点「返回地图」 / 「← 返回地图」 | 从诗页回到诗文地图 |
-| 在地图上点庐山 / 右侧索引 | 回到《望庐山瀑布》诗页 |
+| 打开 `index.html` | 兼容旧链接，跳到《望庐山瀑布》 |
 | 按 `H` | 隐藏/显示底部工具栏（录屏用） |
-| 按 `Esc` | 关闭讲解面板 |
+| 按 `Esc` | 关闭讲解面板 / 地图风土侧栏 |
 | 按钮「↻ 重播动画」 | 重播墨迹浮现动画 |
 | 按钮「⬇ 导出图片」 | 导出 PNG |
 

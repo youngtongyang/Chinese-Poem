@@ -13,6 +13,10 @@ mkdir -p "$DEST"
 # 只发布页面与素材，不发布脚本/预览图/README
 cp "$SRC/index.html" "$DEST/"
 cp "$SRC/map.html" "$DEST/"
+cp "$SRC/poem.html" "$DEST/"
+cp -r "$SRC/css" "$DEST/"
+cp -r "$SRC/js" "$DEST/"
+cp -r "$SRC/data" "$DEST/"
 cp -r "$SRC/assets" "$DEST/"
 
 # favicon
@@ -32,7 +36,7 @@ echo "▶ 重载 nginx"
 nginx -s reload
 
 echo "▶ 验证"
-for p in "/poem/" "/poem/index.html" "/poem/map.html" "/poem/assets/main2.jpeg" "/poem/assets/portrait.jpeg"; do
+for p in "/poem/" "/poem/index.html" "/poem/map.html" "/poem/poem.html" "/poem/data/catalog.js" "/poem/css/poem.css" "/poem/js/poem.js" "/poem/assets/main2.jpeg" "/poem/assets/portrait.jpeg"; do
   printf "  %-28s -> HTTP %s\n" "$p" "$(curl -s -o /dev/null -w '%{http_code}' --max-time 10 "http://127.0.0.1$p")"
 done
 
