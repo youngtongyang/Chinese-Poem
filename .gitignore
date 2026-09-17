@@ -21,3 +21,6 @@ Thumbs.db
 .env
 .env.*
 !.env.example
+
+# 出图中间产物
+assets/map_paint_*.jpeg

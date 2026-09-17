@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Seedream 5.0-lite 出图脚本 — 《望庐山瀑布》古诗页面素材
-用法: python3 gen_images.py [--only main|portrait] [--n 2]
+Seedream 5.0-lite 出图脚本 — 古诗页插画 / 作者像 / 诗文地图底图
+用法: python3 gen_images.py [--only main|main2|portrait|map] [--n 2]
 
 需要环境变量 VOLCANO_API_KEY（火山引擎方舟 API Key）。
 可复制 .env.example 为 .env 后：export $(cat .env | xargs)
 """
-import os, sys, json, base64, time, argparse, urllib.request
+import os, sys, json, base64, time, argparse, urllib.request, urllib.error
 from pathlib import Path
 
 API = "https://ark.cn-beijing.volces.com/api/v3/images/generations"
@@ -69,6 +69,21 @@ PROMPTS = {
         "低饱和度，仿古宣纸米黄底色，画面有宣纸颗粒纹理。"
         "全身像，无文字、无印章。"
     ),
+    # 诗文地图底图：只出四周山水氛围，轮廓与标注由 map.html 叠加
+    "map": (
+        "古旧宣纸上的国风装饰长卷，不是现代地图。"
+        "画面四周环绕写意远山、松树、云雾，四角有淡墨山水点缀，中央大面积浅青绿与暖米留白，"
+        "便于后期叠放示意图形。不要出现国界、行政区、城市、道路、文字、印章、旗帜、人物。"
+        + STYLE +
+        "横幅构图 16:9，右侧约五分之一为云雾留白，左上角天空留白。"
+    ),
+}
+
+SIZES = {
+    "main": "2048x2048",
+    "main2": "2048x2048",
+    "portrait": "2048x2048",
+    "map": "2560x1440",
 }
 
 def gen(name, prompt, size="2048x2048", n=1):
@@ -78,8 +93,12 @@ def gen(name, prompt, size="2048x2048", n=1):
     }).encode()
     req = urllib.request.Request(API, data=body, headers={
         "Authorization": f"Bearer {KEY}", "Content-Type": "application/json"})
-    with urllib.request.urlopen(req, timeout=180) as r:
-        d = json.load(r)
+    try:
+        with urllib.request.urlopen(req, timeout=180) as r:
+            d = json.load(r)
+    except urllib.error.HTTPError as e:
+        detail = e.read().decode("utf-8", "replace")
+        raise RuntimeError(f"HTTP {e.code}: {detail}") from e
     saved = []
     for i, item in enumerate(d.get("data", [])):
         url = item["url"]
@@ -92,16 +111,19 @@ def gen(name, prompt, size="2048x2048", n=1):
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
-    ap.add_argument("--only", default=None, help="main|main2|portrait")
+    ap.add_argument("--only", default=None, help="main|main2|portrait|map")
     ap.add_argument("--n", type=int, default=1)
-    ap.add_argument("--size", default="2048x2048")
+    ap.add_argument("--size", default=None, help="如 2048x2048；默认按主题：地图 2560x1440，其余 2048x2048")
     a = ap.parse_args()
     if not KEY:
-        sys.exit("VOLCANO_API_KEY not set")
+        sys.exit("VOLCANO_API_KEY not set。请复制 .env.example 为 .env 并填入火山引擎方舟 API Key")
+    if a.only and a.only not in PROMPTS:
+        sys.exit(f"unknown --only {a.only!r}, choose from: {', '.join(PROMPTS)}")
     targets = {a.only: PROMPTS[a.only]} if a.only else PROMPTS
     for name, p in targets.items():
-        print(f"[{name}] generating n={a.n} size={a.size} ...")
+        size = a.size or SIZES.get(name, "2048x2048")
+        print(f"[{name}] generating n={a.n} size={size} ...")
         try:
-            gen(name, p, size=a.size, n=a.n)
+            gen(name, p, size=size, n=a.n)
         except Exception as e:
             print(f"  FAILED: {e}")

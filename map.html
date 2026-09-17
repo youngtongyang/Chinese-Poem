@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="favicon.png">
+<title>中国诗文文化地图</title>
+<style>
+:root {
+  --ink:        #2b2118;
+  --ink-light:  #5c4d3c;
+  --ink-faint:  #8a7a66;
+  --paper:      #ece2cd;
+  --seal:       #9c3b2e;
+  --gold:       #b08d4f;
+  --line:       rgba(80, 62, 44, 0.22);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body {
+  width: 100%;
+  background: #2a241d;
+  font-family: 'SimSun', '宋体', 'Songti SC', 'STSong', 'Noto Serif CJK SC', 'Noto Serif SC', serif;
+  -webkit-font-smoothing: antialiased;
+}
+body {
+  min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+  overflow-x: hidden;
+}
+.stage {
+  position: relative;
+  width: min(1600px, 100%, (100vh - 40px) * 16 / 9);
+  aspect-ratio: 16 / 9;
+  background: var(--paper);
+  overflow: hidden;
+  box-shadow: 0 24px 80px rgba(0,0,0,.6), 0 0 0 1px rgba(0,0,0,.4);
+  background-image:
+    radial-gradient(rgba(140,120,90,.09) 1px, transparent 1px),
+    radial-gradient(rgba(160,140,110,.07) 1px, transparent 1px),
+    linear-gradient(105deg, rgba(214,199,172,.5), rgba(236,226,205,.2) 40%, rgba(216,200,172,.45));
+  background-size: 3px 3px, 7px 7px, 100% 100%;
+}
+.stage::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 6;
+  background:
+    radial-gradient(ellipse at 12% 8%,  rgba(150,120,80,.16), transparent 45%),
+    radial-gradient(ellipse at 92% 96%, rgba(120,100,70,.14), transparent 40%);
+  mix-blend-mode: multiply;
+}
+.art {
+  position: absolute; inset: 0; z-index: 1;
+  background-image: url('assets/map.jpeg');
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+.mist {
+  position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  background:
+    radial-gradient(ellipse at 8% 90%, rgba(236,226,205,.55), transparent 34%),
+    radial-gradient(ellipse at 92% 10%, rgba(236,226,205,.4), transparent 30%);
+}
+
+.header {
+  position: absolute; top: 4.8%; left: 4.2%; z-index: 8;
+}
+.header h1 {
+  font-size: clamp(22px, 2.5vw, 32px);
+  font-weight: 700;
+  letter-spacing: .32em;
+  color: var(--ink);
+}
+.compass {
+  position: absolute; top: 5.2%; right: 21%; z-index: 8;
+  width: 34px; text-align: center; color: var(--ink-light);
+}
+.compass .n { font-size: 12px; letter-spacing: .2em; }
+.compass .arrow { font-size: 16px; line-height: 1; }
+
+.map-canvas {
+  position: absolute;
+  left: 2%; top: 10%;
+  width: 78%; height: 86%;
+  z-index: 5;
+}
+.map-canvas svg { width: 100%; height: 100%; display: block; overflow: visible; }
+
+.spot {
+  position: absolute;
+  width: 0; height: 0;
+  z-index: 9;
+  text-decoration: none;
+  color: inherit;
+}
+.spot .pin {
+  position: absolute; left: 0; top: 0;
+  width: 9px; height: 9px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: var(--seal);
+  box-shadow: 0 0 0 4px rgba(156,59,46,.14);
+}
+.spot .tag {
+  position: absolute;
+  left: 0; top: 0;
+  transform: translate(-8px, -18px);
+  display: flex; align-items: center; gap: 7px;
+  padding: 5px 12px 5px 10px;
+  white-space: nowrap;
+  background: #f6efe2;
+  border: 1px solid rgba(120,96,64,.38);
+  border-radius: 3px;
+  color: var(--ink);
+  font-size: clamp(13px, 1.15vw, 16px);
+  letter-spacing: .14em;
+  box-shadow: 0 2px 10px rgba(80,62,44,.1);
+}
+.spot .tag b { color: var(--seal); font-weight: 700; letter-spacing: 0; font-size: .9em; }
+.spot:hover .tag { border-color: var(--seal); color: var(--seal); }
+
+.index {
+  position: absolute; top: 16%; right: 3.4%; bottom: 10%;
+  width: 15%; z-index: 8;
+  border-left: 1px solid var(--line);
+  padding-left: 1.3vw;
+}
+.index h2 {
+  font-size: clamp(14px, 1.25vw, 17px);
+  font-weight: 700;
+  letter-spacing: .36em;
+  color: var(--ink);
+  margin-bottom: 16px;
+}
+.index a {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: clamp(13px, 1.1vw, 15px);
+  color: var(--ink-light);
+  letter-spacing: .18em;
+  text-decoration: none;
+}
+.index a em { font-style: normal; color: var(--seal); min-width: 1.5em; padding-top: 2px; }
+.index .place { display: flex; flex-direction: column; gap: 4px; }
+.index .place small {
+  font-size: .82em;
+  letter-spacing: .16em;
+  color: var(--ink-faint);
+}
+.index a:hover, .index a:hover small { color: var(--seal); }
+
+.toolbar {
+  position: fixed; bottom: 14px; left: 50%; transform: translateX(-50%);
+  z-index: 100;
+  display: flex; gap: 8px;
+  background: rgba(28,24,19,.86);
+  border: 1px solid rgba(190,170,140,.22);
+  border-radius: 999px;
+  padding: 7px 9px;
+}
+.toolbar.hide { opacity: 0; pointer-events: none; }
+.toolbar a, .toolbar button {
+  font-family: inherit;
+  font-size: 12.5px; letter-spacing: .1em;
+  color: #e0d5c0;
+  background: transparent;
+  border: none; border-radius: 999px;
+  padding: 8px 15px;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.toolbar a:hover, .toolbar button:hover { background: rgba(190,160,110,.20); color: #fff; }
+
+@media (max-width: 900px) {
+  html, body { padding: 0; align-items: flex-start; }
+  body { min-height: 100dvh; }
+  .stage {
+    width: 100%;
+    aspect-ratio: auto;
+    min-height: 100dvh;
+    overflow: visible;
+    box-shadow: none;
+  }
+  .header {
+    position: relative; top: auto; left: auto;
+    padding: calc(18px + env(safe-area-inset-top, 0px)) 20px 6px;
+  }
+  .header h1 {
+    font-size: clamp(20px, 5.5vw, 26px);
+    letter-spacing: .16em;
+    line-height: 1.45;
+  }
+  .compass { display: none; }
+  .map-canvas {
+    position: relative; left: auto; top: auto;
+    width: calc(100% - 12px);
+    height: auto;
+    aspect-ratio: 1100 / 780;
+    margin: 4px auto 0;
+  }
+  .index {
+    position: relative; top: auto; right: auto; bottom: auto;
+    width: auto;
+    margin: 10px 16px calc(88px + env(safe-area-inset-bottom, 0px));
+    padding: 14px 16px 12px;
+    border-left: 0;
+    border: 1px solid var(--line);
+    background: rgba(244,239,228,.55);
+  }
+  .index h2 { font-size: 15px; letter-spacing: .28em; margin-bottom: 10px; }
+  .index a { font-size: 16px; padding: 6px 0; min-height: 44px; align-items: center; }
+
+  .toolbar {
+    left: auto;
+    right: 14px;
+    bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+    transform: none;
+    padding: 0;
+    width: 46px; height: 46px;
+    border-radius: 50%;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+  }
+  .toolbar.open {
+    width: auto; height: auto;
+    border-radius: 999px;
+    padding: 7px 10px;
+    gap: 4px;
+    max-width: calc(100vw - 24px);
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+  .toolbar a, .toolbar button { font-size: 12px; padding: 8px 12px; }
+  .toolbar:not(.open) button,
+  .toolbar:not(.open) a { display: none; }
+  .toolbar:not(.open) button#btnHide {
+    display: block; padding: 0; width: 46px; height: 46px;
+    border-radius: 50%; font-size: 0; line-height: 1;
+  }
+  .toolbar:not(.open) button#btnHide::after { content: '⚙'; font-size: 19px; }
+  .toolbar.open button#btnHide { font-size: 12px; }
+  .toolbar.open #btnHide { order: 99; }
+}
+
+@media (max-width: 480px) {
+  .header h1 { letter-spacing: .1em; }
+  .map-canvas { width: 100%; }
+}
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+  <div class="art"></div>
+  <div class="mist"></div>
+
+  <header class="header">
+    <h1>中国诗文文化地图</h1>
+  </header>
+  <div class="compass" aria-hidden="true"><div class="n">北</div><div class="arrow">▲</div></div>
+
+  <div class="map-canvas" id="mapCanvas">
+    <svg viewBox="0 0 1100 780" role="img" aria-label="中国诗文地理示意">
+      <defs>
+        <linearGradient id="landFill" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#d8e4ce"/>
+          <stop offset="42%" stop-color="#c5d4b8"/>
+          <stop offset="100%" stop-color="#b3c6a8"/>
+        </linearGradient>
+        <linearGradient id="river" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#c5d6cf" stop-opacity=".15"/>
+          <stop offset="50%" stop-color="#9eb9b4" stop-opacity=".55"/>
+          <stop offset="100%" stop-color="#c5d6cf" stop-opacity=".15"/>
+        </linearGradient>
+        <filter id="mottle" x="-2%" y="-2%" width="104%" height="104%">
+          <feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" result="n"/>
+          <feColorMatrix in="n" type="matrix"
+            values="0 0 0 0 .72  0 0 0 0 .76  0 0 0 0 .64  0 0 0 .16 0" result="g"/>
+          <feBlend in="SourceGraphic" in2="g" mode="multiply"/>
+        </filter>
+        <filter id="softInk">
+          <feGaussianBlur stdDeviation=".35"/>
+        </filter>
+        <clipPath id="landClip">
+          <path d="M 936.3 110.8 L 964.9 117.2 L 984.3 131.4 L 990.9 150.2 L 1015.8 150.2 L 1030.0 142.3 L 1057.2 136.4 L 1048.5 154.4 L 1042.2 161.8 L 1036.5 183.7 L 1025.5 203.1 L 1005.6 199.6 L 991.5 206.6 L 995.9 223.8 L 993.5 247.4 L 985.1 247.9 L 985.2 258.1 L 974.6 246.3 L 968.1 257.5 L 942.8 266.1 L 945.3 276.7 L 931.2 275.9 L 923.4 269.7 L 912.1 283.9 L 894.0 294.6 L 880.7 307.4 L 857.8 313.2 L 845.7 322.6 L 828.0 328.1 L 836.7 318.8 L 833.3 311.0 L 846.3 297.6 L 837.6 287.1 L 823.3 294.1 L 804.8 308.0 L 794.7 321.0 L 778.6 321.9 L 770.3 331.2 L 778.9 344.8 L 792.3 348.1 L 792.9 357.0 L 805.9 362.9 L 824.2 348.6 L 838.8 356.4 L 849.4 356.9 L 852.1 367.4 L 828.8 373.0 L 821.2 383.8 L 805.2 393.8 L 796.8 407.8 L 814.5 418.8 L 820.9 438.5 L 842.0 472.2 L 841.8 487.0 L 831.5 492.5 L 835.4 503.1 L 845.0 509.3 L 838.4 541.5 L 829.2 543.3 L 803.9 591.2 L 788.7 615.1 L 743.4 650.3 L 724.9 652.6 L 714.8 661.5 L 709.2 655.0 L 699.9 665.0 L 677.0 675.0 L 659.6 678.1 L 654.0 699.2 L 644.9 700.4 L 640.6 685.8 L 644.5 678.1 L 622.5 671.7 L 614.8 675.0 L 598.3 669.8 L 590.5 661.6 L 593.1 650.1 L 578.1 646.5 L 570.2 639.0 L 556.2 649.6 L 527.2 651.8 L 509.9 659.6 L 512.3 682.5 L 503.6 682.0 L 501.6 669.0 L 489.6 674.8 L 470.3 663.6 L 475.1 647.0 L 464.7 643.1 L 460.8 624.7 L 443.5 628.1 L 445.5 604.3 L 461.0 587.6 L 461.2 555.8 L 454.0 551.1 L 448.5 539.3 L 438.9 540.8 L 421.3 537.8 L 426.8 529.4 L 419.1 516.9 L 407.4 525.4 L 393.7 520.5 L 374.8 533.2 L 359.8 548.1 L 346.6 550.6 L 339.4 545.2 L 330.8 544.7 L 319.0 540.1 L 310.2 545.1 L 299.3 560.0 L 298.0 544.3 L 288.0 548.5 L 250.3 541.9 L 237.0 533.1 L 224.2 529.2 L 218.7 519.6 L 209.5 516.7 L 193.0 503.7 L 179.8 497.5 L 173.0 502.3 L 150.2 488.3 L 134.1 475.7 L 129.5 453.6 L 141.3 456.3 L 141.8 446.1 L 135.3 435.9 L 137.0 419.6 L 119.3 396.1 L 92.4 388.0 L 87.5 372.7 L 75.4 363.3 L 72.5 357.6 L 70.0 346.2 L 70.6 338.4 L 60.6 333.9 L 55.2 335.9 L 51.1 317.4 L 55.7 312.8 L 53.5 308.1 L 69.1 298.7 L 80.5 294.8 L 97.8 297.4 L 104.0 284.7 L 125.1 282.3 L 130.9 274.4 L 156.7 263.5 L 159.1 259.0 L 157.7 247.6 L 169.0 242.4 L 154.2 207.6 L 186.7 199.7 L 195.1 195.2 L 206.9 159.4 L 239.5 166.0 L 248.6 156.9 L 249.4 136.9 L 263.0 135.0 L 275.5 121.7 L 281.9 120.1 L 286.2 134.0 L 300.0 144.6 L 323.4 152.1 L 334.7 168.2 L 328.4 191.6 L 334.3 200.3 L 375.9 206.5 L 395.7 219.0 L 405.8 221.2 L 413.3 239.6 L 422.9 251.5 L 441.0 251.0 L 474.8 255.5 L 496.6 252.7 L 512.8 255.7 L 537.1 267.9 L 556.9 267.8 L 564.2 274.1 L 583.3 263.3 L 609.8 256.4 L 634.3 255.6 L 653.5 248.6 L 665.3 237.9 L 676.8 231.1 L 668.9 216.9 L 677.5 204.0 L 703.6 209.8 L 719.9 199.2 L 744.9 191.5 L 756.9 178.2 L 768.5 172.5 L 792.3 169.9 L 805.2 172.1 L 807.0 165.0 L 792.2 151.1 L 779.0 144.7 L 766.4 152.0 L 750.2 148.9 L 740.9 151.5 L 736.7 143.3 L 756.3 108.2 L 776.0 115.8 L 799.1 103.1 L 798.9 94.3 L 813.7 73.1 L 822.8 66.7 L 822.6 55.7 L 813.6 50.9 L 827.2 41.0 L 869.3 36.8 L 893.9 42.8 L 908.3 50.1 L 930.2 91.2 Z"/>
+        </clipPath>
+        <g id="pine">
+          <path d="M0 22 L0 -2" stroke="#5a4630" stroke-width="1.4" fill="none"/>
+          <path d="M0 4 C-11 -2 -13 -10 -2 -8 C-9 -16 0 -22 0 -22 C0 -22 9 -16 2 -8 C13 -10 11 -2 0 4Z" fill="#6a7a5a"/>
+          <path d="M-7 2 C-12 -6 -4 -9 0 -6 C4 -9 12 -6 7 2Z" fill="#7e8f68"/>
+          <path d="M-1 -14 C-6 -18 0 -26 0 -26 C0 -26 6 -18 1 -14Z" fill="#c47a3a"/>
+        </g>
+        <g id="pineSmall">
+          <path d="M0 14 L0 0" stroke="#5a4630" stroke-width="1.1" fill="none"/>
+          <path d="M0 2 C-7 -2 -8 -8 -1 -6 C-6 -12 0 -16 0 -16 C0 -16 6 -12 1 -6 C8 -8 7 -2 0 2Z" fill="#74845e"/>
+        </g>
+        <g id="pagoda">
+          <rect x="-4" y="18" width="8" height="10" fill="#cbb48a"/>
+          <path d="M-14 20 L14 20 L9 24 L-9 24Z" fill="#8d3b2c"/>
+          <path d="M-11 12 L11 12 L7 16 L-7 16Z" fill="#a34a36"/>
+          <path d="M-8 4 L8 4 L5 8 L-5 8Z" fill="#8d3b2c"/>
+          <path d="M-5 -4 L5 -4 L2.5 0 L-2.5 0Z" fill="#a34a36"/>
+          <path d="M0 -12 L3 -4 L-3 -4Z" fill="#7a2f24"/>
+        </g>
+        <g id="pavilion">
+          <rect x="-18" y="16" width="36" height="5" rx="1" fill="#8a623c"/>
+          <rect x="-13" y="2" width="2.4" height="14" fill="#d7c39a"/>
+          <rect x="10.6" y="2" width="2.4" height="14" fill="#d7c39a"/>
+          <rect x="-2" y="2" width="4" height="14" fill="#e8d7b0"/>
+          <path d="M-24 4 Q0 -14 24 4 L16 9 Q0 2 -16 9Z" fill="#9c3b2e"/>
+          <path d="M-16 -4 Q0 -16 16 -4 L10 0 Q0 -6 -10 0Z" fill="#7a2e24"/>
+          <path d="M-3 -16 L0 -22 L3 -16Z" fill="#c4a36a"/>
+        </g>
+        <g id="cottage">
+          <path d="M-16 8 L0 -10 L16 8 Z" fill="#7a8a68"/>
+          <path d="M-16 8 L16 8 L16 20 L-16 20Z" fill="#e6d3a8"/>
+          <rect x="-3" y="11" width="6" height="9" fill="#6b4a32"/>
+          <path d="M6 -2 L14 8 L10 8 L4 -1Z" fill="#9aa484"/>
+        </g>
+        <g id="hills">
+          <path d="M-40 18 Q-18 -16 4 10 Q18 -8 40 18 Z" fill="#8fa086"/>
+          <path d="M-28 18 Q-8 -4 10 18 Z" fill="#6f8068"/>
+          <path d="M-2 18 Q16 -10 36 18 Z" fill="#7d8d70"/>
+        </g>
+      </defs>
+
+      <!-- 陆块 -->
+      <g filter="url(#mottle)">
+        <path class="land" fill="url(#landFill)" stroke="#5c4a36" stroke-width="1.6" stroke-linejoin="round"
+          d="M 936.3 110.8 L 964.9 117.2 L 984.3 131.4 L 990.9 150.2 L 1015.8 150.2 L 1030.0 142.3 L 1057.2 136.4 L 1048.5 154.4 L 1042.2 161.8 L 1036.5 183.7 L 1025.5 203.1 L 1005.6 199.6 L 991.5 206.6 L 995.9 223.8 L 993.5 247.4 L 985.1 247.9 L 985.2 258.1 L 974.6 246.3 L 968.1 257.5 L 942.8 266.1 L 945.3 276.7 L 931.2 275.9 L 923.4 269.7 L 912.1 283.9 L 894.0 294.6 L 880.7 307.4 L 857.8 313.2 L 845.7 322.6 L 828.0 328.1 L 836.7 318.8 L 833.3 311.0 L 846.3 297.6 L 837.6 287.1 L 823.3 294.1 L 804.8 308.0 L 794.7 321.0 L 778.6 321.9 L 770.3 331.2 L 778.9 344.8 L 792.3 348.1 L 792.9 357.0 L 805.9 362.9 L 824.2 348.6 L 838.8 356.4 L 849.4 356.9 L 852.1 367.4 L 828.8 373.0 L 821.2 383.8 L 805.2 393.8 L 796.8 407.8 L 814.5 418.8 L 820.9 438.5 L 842.0 472.2 L 841.8 487.0 L 831.5 492.5 L 835.4 503.1 L 845.0 509.3 L 838.4 541.5 L 829.2 543.3 L 803.9 591.2 L 788.7 615.1 L 743.4 650.3 L 724.9 652.6 L 714.8 661.5 L 709.2 655.0 L 699.9 665.0 L 677.0 675.0 L 659.6 678.1 L 654.0 699.2 L 644.9 700.4 L 640.6 685.8 L 644.5 678.1 L 622.5 671.7 L 614.8 675.0 L 598.3 669.8 L 590.5 661.6 L 593.1 650.1 L 578.1 646.5 L 570.2 639.0 L 556.2 649.6 L 527.2 651.8 L 509.9 659.6 L 512.3 682.5 L 503.6 682.0 L 501.6 669.0 L 489.6 674.8 L 470.3 663.6 L 475.1 647.0 L 464.7 643.1 L 460.8 624.7 L 443.5 628.1 L 445.5 604.3 L 461.0 587.6 L 461.2 555.8 L 454.0 551.1 L 448.5 539.3 L 438.9 540.8 L 421.3 537.8 L 426.8 529.4 L 419.1 516.9 L 407.4 525.4 L 393.7 520.5 L 374.8 533.2 L 359.8 548.1 L 346.6 550.6 L 339.4 545.2 L 330.8 544.7 L 319.0 540.1 L 310.2 545.1 L 299.3 560.0 L 298.0 544.3 L 288.0 548.5 L 250.3 541.9 L 237.0 533.1 L 224.2 529.2 L 218.7 519.6 L 209.5 516.7 L 193.0 503.7 L 179.8 497.5 L 173.0 502.3 L 150.2 488.3 L 134.1 475.7 L 129.5 453.6 L 141.3 456.3 L 141.8 446.1 L 135.3 435.9 L 137.0 419.6 L 119.3 396.1 L 92.4 388.0 L 87.5 372.7 L 75.4 363.3 L 72.5 357.6 L 70.0 346.2 L 70.6 338.4 L 60.6 333.9 L 55.2 335.9 L 51.1 317.4 L 55.7 312.8 L 53.5 308.1 L 69.1 298.7 L 80.5 294.8 L 97.8 297.4 L 104.0 284.7 L 125.1 282.3 L 130.9 274.4 L 156.7 263.5 L 159.1 259.0 L 157.7 247.6 L 169.0 242.4 L 154.2 207.6 L 186.7 199.7 L 195.1 195.2 L 206.9 159.4 L 239.5 166.0 L 248.6 156.9 L 249.4 136.9 L 263.0 135.0 L 275.5 121.7 L 281.9 120.1 L 286.2 134.0 L 300.0 144.6 L 323.4 152.1 L 334.7 168.2 L 328.4 191.6 L 334.3 200.3 L 375.9 206.5 L 395.7 219.0 L 405.8 221.2 L 413.3 239.6 L 422.9 251.5 L 441.0 251.0 L 474.8 255.5 L 496.6 252.7 L 512.8 255.7 L 537.1 267.9 L 556.9 267.8 L 564.2 274.1 L 583.3 263.3 L 609.8 256.4 L 634.3 255.6 L 653.5 248.6 L 665.3 237.9 L 676.8 231.1 L 668.9 216.9 L 677.5 204.0 L 703.6 209.8 L 719.9 199.2 L 744.9 191.5 L 756.9 178.2 L 768.5 172.5 L 792.3 169.9 L 805.2 172.1 L 807.0 165.0 L 792.2 151.1 L 779.0 144.7 L 766.4 152.0 L 750.2 148.9 L 740.9 151.5 L 736.7 143.3 L 756.3 108.2 L 776.0 115.8 L 799.1 103.1 L 798.9 94.3 L 813.7 73.1 L 822.8 66.7 L 822.6 55.7 L 813.6 50.9 L 827.2 41.0 L 869.3 36.8 L 893.9 42.8 L 908.3 50.1 L 930.2 91.2 Z"/>
+        <path fill="url(#landFill)" stroke="#5c4a36" stroke-width="1.2" stroke-linejoin="round"
+          d="M 652.3 732.4 L 638.1 742.0 L 624.7 735.8 L 624.2 718.6 L 632.3 709.6 L 650.2 704.0 L 659.7 704.4 L 663.3 712.1 L 656.1 720.9 Z"/>
+        <path fill="url(#landFill)" stroke="#5c4a36" stroke-width="1.2" stroke-linejoin="round"
+          d="M 839.9 618.1 L 830.0 650.2 L 823.0 666.6 L 814.3 649.7 L 812.5 634.9 L 822.1 615.2 L 835.3 600.1 L 842.7 606.0 Z"/>
+      </g>
+
+      <!-- 陆内山水（无标注，只为画意） -->
+      <g clip-path="url(#landClip)">
+        <path d="M210 430 C280 390, 360 430, 430 400 C520 360, 620 430, 720 410 C780 398, 820 430, 860 470"
+          fill="none" stroke="url(#river)" stroke-width="9" stroke-linecap="round"/>
+        <use href="#hills" transform="translate(300 430) scale(1.6)"/>
+        <use href="#hills" transform="translate(430 390) scale(1.15)"/>
+        <use href="#hills" transform="translate(250 360) scale(.9)"/>
+        <use href="#pine" transform="translate(248 448) scale(.9)"/>
+        <use href="#pine" transform="translate(276 456)"/>
+        <use href="#pineSmall" transform="translate(228 452)"/>
+        <use href="#pineSmall" transform="translate(302 438)"/>
+        <use href="#cottage" transform="translate(340 455) scale(.95)"/>
+        <use href="#pine" transform="translate(372 448) scale(.8)"/>
+        <use href="#pagoda" transform="translate(430 400) scale(1.15)"/>
+        <use href="#pineSmall" transform="translate(452 428)"/>
+        <use href="#pineSmall" transform="translate(408 430)"/>
+        <use href="#pavilion" transform="translate(560 330) scale(.72)"/>
+        <use href="#pineSmall" transform="translate(538 338)"/>
+        <use href="#pine" transform="translate(586 336) scale(.7)"/>
+        <use href="#pavilion" transform="translate(600 348) scale(.8)"/>
+        <use href="#pine" transform="translate(572 360) scale(.75)"/>
+        <use href="#pineSmall" transform="translate(626 364)"/>
+        <ellipse cx="722" cy="528" rx="32" ry="12" fill="#dfe8d6" opacity=".4"/>
+      </g>
+
+      <!-- 陆缘点景：只保留不与陆内重复的一组 -->
+      <g opacity=".96">
+        <use href="#pavilion" transform="translate(640 290) scale(.85)"/>
+        <use href="#pine" transform="translate(612 302) scale(.7)"/>
+        <use href="#hills" transform="translate(290 520) scale(1.1)"/>
+        <use href="#pine" transform="translate(262 528)"/>
+        <use href="#pineSmall" transform="translate(318 534)"/>
+      </g>
+
+      <!-- 庐山：长江南岸、江西北部（贴着江流，不靠东南沿海） -->
+      <a href="index.html">
+        <g transform="translate(702 502)" font-family="'SimSun','宋体','Songti SC',serif">
+          <rect x="-48" y="-56" width="168" height="110" fill="transparent"/>
+          <ellipse cx="4" cy="28" rx="36" ry="14" fill="#d9e4ef" opacity=".45"/>
+          <path d="M-14 8 Q-4 -18 12 -4 Q22 8 16 28 L-10 30 Z" fill="#7f8f72"/>
+          <path d="M-2 2 Q6 -14 16 8 L10 28 L-6 26 Z" fill="#5e6d58"/>
+          <path d="M3 -2 L8 28" stroke="#eef4f8" stroke-width="4" stroke-linecap="round" opacity=".85"/>
+          <path d="M7 0 L10 26" stroke="#c5d8e2" stroke-width="1.8" stroke-linecap="round" opacity=".8"/>
+          <use href="#pavilion" transform="translate(0 4) scale(.62)"/>
+          <use href="#pine" transform="translate(-22 16) scale(.68)"/>
+          <use href="#pineSmall" transform="translate(22 20)"/>
+          <circle cx="0" cy="0" r="3.6" fill="#9c3b2e"/>
+          <line x1="6" y1="0" x2="36" y2="-10" stroke="#6a5640" stroke-width="1.05"/>
+          <rect x="36" y="-24" width="70" height="22" rx="2" fill="#f6efe2" stroke="rgba(120,96,64,.38)"/>
+          <text x="44" y="-8" font-size="12" fill="#9c3b2e">01</text>
+          <text x="60" y="-8" font-size="13" fill="#2b2118">庐山</text>
+        </g>
+      </a>
+    </svg>
+  </div>
+
+  <aside class="index">
+    <h2>地点索引</h2>
+    <a href="index.html">
+      <em>01</em>
+      <span class="place">庐山<small>江西九江</small></span>
+    </a>
+  </aside>
+</div>
+
+<div class="toolbar" id="toolbar">
+  <a href="index.html">望庐山瀑布</a>
+  <button id="btnHide" type="button">👁 隐藏工具列 (H)</button>
+</div>
+
+<script>
+const toolbar = document.getElementById('toolbar');
+const isMobile = () => window.matchMedia('(max-width: 900px)').matches;
+
+document.getElementById('btnHide').addEventListener('click', () => {
+  if (isMobile()) toolbar.classList.toggle('open');
+  else toolbar.classList.add('hide');
+});
+document.addEventListener('keydown', e => {
+  const k = e.key.toLowerCase();
+  if (k === 'h') toolbar.classList.toggle('hide');
+  if (k === 'escape') toolbar.classList.remove('open');
+});
+document.addEventListener('pointerdown', e => {
+  if (!isMobile() || !toolbar.classList.contains('open')) return;
+  if (!toolbar.contains(e.target)) toolbar.classList.remove('open');
+});
+window.addEventListener('resize', () => {
+  toolbar.classList.toggle('hide', false);
+  toolbar.classList.toggle('open', false);
+});
+
+const art = document.querySelector('.art');
+const probe = new Image();
+probe.onload = () => { art.style.opacity = '.42'; };
+probe.src = 'assets/map.jpeg';
+</script>
+</body>
+</html>

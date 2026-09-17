@@ -327,9 +327,15 @@ body {
   border-right: 1px solid var(--line);
 }
 
-/* ── 讲解文案收起在左下（点击展开） ─────────────────── */
-.notes-toggle {
+/* ── 左下导航：返回地图 / 讲解 ───────────────────────── */
+.side-links {
   position: absolute; left: 3.4%; bottom: 7.5%;
+  z-index: 3;
+  display: flex;
+  gap: 14px;
+  align-items: flex-end;
+}
+.map-back, .notes-toggle {
   writing-mode: vertical-rl;
   font-size: clamp(11px, 0.86vw, 14px);
   letter-spacing: .34em;
@@ -339,9 +345,9 @@ body {
   padding: .5em .3em;
   border-left: 1px solid var(--line);
   transition: color .25s, border-color .25s;
-  z-index: 3;
+  text-decoration: none;
 }
-.notes-toggle:hover { color: var(--seal); border-color: var(--seal); }
+.map-back:hover, .notes-toggle:hover { color: var(--seal); border-color: var(--seal); }
 
 .notes-panel {
   position: absolute; inset: 0; z-index: 20;
@@ -417,7 +423,7 @@ body {
   transition: opacity .35s;
 }
 .toolbar.hide { opacity: 0; pointer-events: none; }
-.toolbar button {
+.toolbar a, .toolbar button {
   font-family: inherit;
   font-size: 12.5px; letter-spacing: .1em;
   color: #e0d5c0;
@@ -427,8 +433,9 @@ body {
   cursor: pointer;
   transition: all .22s;
   white-space: nowrap;
+  text-decoration: none;
 }
-.toolbar button:hover { background: rgba(190,160,110,.20); color: #fff; }
+.toolbar a:hover, .toolbar button:hover { background: rgba(190,160,110,.20); color: #fff; }
 .toolbar button.active { background: rgba(176,141,79,.32); color: #fff; }
 
 /* ══════════════════════════════════════════════════════════
@@ -530,14 +537,22 @@ body {
   }
   .seal span { font-size: clamp(11px, 2.9vw, 14px); }
 
-  /* 讲解按钮：标题下方居中 */
-  .notes-toggle {
+  /* 左下导航：标题下居中横排 */
+  .side-links {
     position: static;
     left: auto; bottom: auto;
     margin: 16px auto 0;
-    display: inline-block;
+    justify-content: center;
+    gap: 10px;
+  }
+  .map-back, .notes-toggle {
+    writing-mode: horizontal-tb;
+    letter-spacing: .18em;
     font-size: 13px;
-    padding: 8px 20px;
+    padding: 8px 16px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    margin: 0;
   }
 
   /* ── 右区 → 诗句区（竖排，居中，4 列并排） ── */
@@ -642,13 +657,14 @@ body {
     flex-wrap: wrap;
     justify-content: flex-end;
   }
-  .toolbar button {
+  .toolbar a, .toolbar button {
     font-size: 12px;
     padding: 8px 12px;
     letter-spacing: .04em;
   }
   /* 收起态：只显示"隐藏工具列"作为开合钮 */
-  .toolbar:not(.open) button { display: none; }
+  .toolbar:not(.open) button,
+  .toolbar:not(.open) a { display: none; }
   .toolbar:not(.open) button#btnHide { display: block; padding: 0; width: 46px; height: 46px;
     border-radius: 50%; font-size: 19px; line-height: 1; }
   .toolbar:not(.open) button#btnHide::after { content: '⚙'; }
@@ -704,7 +720,10 @@ body {
 
       <div class="seal" title="印章"><span>诗</span><span>仙</span><span>之</span><span>作</span></div>
 
-      <div class="notes-toggle" id="notesToggle">讲 解</div>
+      <div class="side-links">
+        <a class="map-back" href="map.html">返回地图</a>
+        <div class="notes-toggle" id="notesToggle">讲 解</div>
+      </div>
     </div>
 
     <!-- 右：竖排诗句 -->
@@ -795,6 +814,7 @@ body {
 
 <!-- 页面工具（录屏时按 H 隐藏） -->
 <div class="toolbar" id="toolbar">
+  <a href="map.html">← 返回地图</a>
   <button id="btnReplay">↻ 重播动画</button>
   <button id="btnNotes">📖 讲解</button>
   <button id="btnShot">⬇ 导出图片</button>
