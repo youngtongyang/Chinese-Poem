@@ -142,6 +142,12 @@ body {
 }
 
 /* 作者落款 */
+.byline {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  flex: 0 0 auto;
+}
 .author-line {
   writing-mode: vertical-rl;
   margin-top: 1.1em;
@@ -307,6 +313,7 @@ body {
   color: var(--seal);
   font-weight: 700;
   letter-spacing: .06em;
+  white-space: nowrap;
 }
 /* 代表作一行 */
 .author-works {
@@ -448,18 +455,20 @@ body {
 
 /* ── 平板 / 手机（竖版重排） ── */
 @media (max-width: 900px) {
-  html, body { padding: 0; align-items: flex-start; }
+  html, body { padding: 0; align-items: flex-start; overflow-x: hidden; }
 
   /* 舞台改为竖版，高度跟随内容，不再锁 9:16 */
   .stage {
     width: 100%;
     aspect-ratio: auto;
+    height: auto;
     min-height: 100vh;
     min-height: 100dvh;              /* 移动端地址栏兼容 */
     box-shadow: none;
     border-radius: 0;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
   }
 
   /* 插画铺满整个背景，重心上移 */
@@ -492,7 +501,7 @@ body {
   /* ── 左区 → 顶部标题区（横排居中） ── */
   .left-panel {
     flex: none;
-    padding: 11vh 7vw 0;
+    padding: calc(20px + env(safe-area-inset-top, 0px)) 6vw 0;
     align-items: center;
     text-align: center;
     display: block;
@@ -501,15 +510,18 @@ body {
   .title-block {
     writing-mode: horizontal-tb;      /* 竖排 → 横排 */
     text-orientation: mixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
-    margin-bottom: 14px;
+    width: 100%;
+    margin-bottom: 10px;
   }
   .title-main {
-    font-size: clamp(30px, 8.6vw, 46px);
-    letter-spacing: .14em;
-    /* 竖排时的 letter-spacing 会让末字偏移，横排时补回来 */
-    padding-left: .14em;
-    white-space: nowrap;              /* 绝不允许标题折行 */
+    font-size: clamp(28px, 7.6vw, 42px);
+    letter-spacing: .12em;
+    padding-left: .12em;
+    white-space: nowrap;
   }
   .title-sub {
     writing-mode: horizontal-tb;
@@ -518,6 +530,16 @@ body {
     margin: 0 0 8px;
     padding: 0;
     align-self: auto;
+  }
+  .byline {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 2px 0 0;
+    flex: 0 0 auto;
+    width: 100%;
   }
   .author-line {
     writing-mode: horizontal-tb;
@@ -528,21 +550,29 @@ body {
     display: block;
   }
 
-  /* 印章：竖版下移到标题下方右侧，避开标题文字 */
+  /* 印章：落款旁小印，不再绝对定位以免压住按钮 */
   .seal {
-    position: absolute;
-    left: auto; right: 8vw; top: 14vh;
-    width: clamp(38px, 10vw, 50px);
-    opacity: .82;
+    position: static;
+    left: auto; right: auto; top: auto;
+    margin: 0;
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    min-height: 36px;
+    flex: 0 0 36px;
+    box-sizing: border-box;
+    padding: 5px;
+    opacity: .9;
   }
-  .seal span { font-size: clamp(11px, 2.9vw, 14px); }
+  .seal span { font-size: 9px; }
 
   /* 左下导航：标题下居中横排 */
   .side-links {
     position: static;
     left: auto; bottom: auto;
-    margin: 16px auto 0;
+    margin: 14px auto 0;
     justify-content: center;
+    align-items: center;
     gap: 10px;
   }
   .map-back, .notes-toggle {
@@ -558,7 +588,8 @@ body {
   /* ── 右区 → 诗句区（竖排，居中，4 列并排） ── */
   .right-panel {
     flex: none;
-    padding: 3.5vh 4vw 2vh;
+    width: 100%;
+    padding: 18px 4vw 8px;
     align-items: center;
     justify-content: center;
     display: flex;
@@ -576,10 +607,29 @@ body {
     padding-top: .26em;
   }
   /* 入场动画延迟缩短（小屏等待感太强） */
-  .col:nth-child(1) .line.ink-in { animation-delay: .20s; }
-  .col:nth-child(2) .line.ink-in { animation-delay: .55s; }
-  .col:nth-child(3) .line.ink-in { animation-delay: .90s; }
-  .col:nth-child(4) .line.ink-in { animation-delay: 1.25s; }
+  .col:nth-child(1) .line.ink-in { animation-delay: .08s; }
+  .col:nth-child(2) .line.ink-in { animation-delay: .18s; }
+  .col:nth-child(3) .line.ink-in { animation-delay: .28s; }
+  .col:nth-child(4) .line.ink-in { animation-delay: .38s; }
+
+  /* ── 注解：紧跟诗句，作为脚注 ── */
+  .gloss {
+    position: static;
+    left: auto; right: auto; bottom: auto;
+    margin: 2px auto 12px;
+    padding: 0 6vw;
+    max-width: 92vw;
+    text-align: center;
+    font-size: clamp(10px, 2.6vw, 12px);
+    letter-spacing: .08em;
+    line-height: 1.85;
+    opacity: .72;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+  }
+  .gloss-sep { display: none; }
 
   /* ── 作者卡 → 底部通栏 ── */
   .author-card {
@@ -587,12 +637,11 @@ body {
     inset: auto;
     left: auto; right: auto; bottom: auto;
     width: auto;
-    /* 底部留出工具列高度（约 56px）+ 安全区，避免被浮动工具列压住 */
-    margin: 4.5vh 6vw calc(72px + env(safe-area-inset-bottom, 0px));
+    margin: 0 5vw calc(72px + env(safe-area-inset-bottom, 0px));
     padding: 14px 15px 13px;
     gap: 12px;
-    opacity: 1;                        /* 移动端不做延迟动画，避免空白 */
-    animation: cardInMobile .6s ease .3s both;
+    opacity: 1;
+    animation: cardInMobile .45s ease both;
   }
   .author-card img {
     width: clamp(58px, 17vw, 76px);
@@ -602,24 +651,11 @@ body {
   .author-desc {
     font-size: clamp(11px, 3.1vw, 13px);
     line-height: 1.85;
-    text-align: left;                  /* 小屏两端对齐会拉出大空隙 */
+    text-align: left;
+    text-align-last: left;
+    letter-spacing: .02em;
   }
   .author-works { font-size: clamp(10px, 2.7vw, 12px); }
-
-  /* ── 注解小字 → 作者卡上方（作为诗句脚注，紧贴卡片） ── */
-  .gloss {
-    position: static;
-    margin: 2.5vh 6vw 10px;
-    text-align: center;
-    font-size: clamp(10px, 2.6vw, 12px);
-    letter-spacing: .08em;
-    line-height: 1.9;
-    opacity: .72;
-  }
-  /* 作者卡：底部留够固定工具列（46px 圆钮 + 14px 边距）的安全距离 */
-  .author-card {
-    margin: 0 6vw calc(76px + env(safe-area-inset-bottom, 0px));
-  }
 
   /* 讲解面板：移动端全屏 */
   .notes-panel { padding: 22px 18px 40px; }
@@ -675,18 +711,18 @@ body {
 }
 
 @keyframes cardInMobile {
-  from { opacity: 0; transform: translateY(16px); }
+  from { opacity: .55; transform: translateY(12px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
 /* ── 小屏手机微调 ── */
 @media (max-width: 480px) {
-  .left-panel { padding-top: 9vh; }
+  .left-panel { padding-top: calc(16px + env(safe-area-inset-top, 0px)); }
   .title-main { font-size: clamp(28px, 8.2vw, 38px); }
-  .seal { right: 6vw; top: 13vh; width: clamp(34px, 9.4vw, 44px); }
+  .seal { position: static; right: auto; top: auto; width: 32px; height: 32px; min-width: 32px; min-height: 32px; flex-basis: 32px; margin: 0; }
   .line { font-size: clamp(19px, 6.6vw, 27px); letter-spacing: .22em; }
   .poem { gap: clamp(6px, 2.6vw, 16px); }
-  .author-card { margin: 0 5vw calc(72px + env(safe-area-inset-bottom, 0px)); padding: 12px; }
+  .author-card { margin: 0 4vw calc(72px + env(safe-area-inset-bottom, 0px)); padding: 12px; }
   .author-desc { font-size: 11.5px; }
 }
 
@@ -716,9 +752,10 @@ body {
         <div class="title-sub">唐 · 七言绝句</div>
         <div class="title-main">望庐山瀑布</div>
       </div>
-      <div class="author-line">李白</div>
-
-      <div class="seal" title="印章"><span>诗</span><span>仙</span><span>之</span><span>作</span></div>
+      <div class="byline">
+        <div class="author-line">李白</div>
+        <div class="seal" title="印章"><span>诗</span><span>仙</span><span>之</span><span>作</span></div>
+      </div>
 
       <div class="side-links">
         <a class="map-back" href="map.html">返回地图</a>
@@ -738,6 +775,13 @@ body {
 
   </div>
 
+  <!-- 注解小字 -->
+  <div class="gloss">
+    <span>香炉峰 · 庐山北峰，云雾缭绕如炉</span>
+    <span class="gloss-sep">｜</span>
+    <span>银河 · 银汉，即天河也</span>
+  </div>
+
   <!-- 作者卡：李白简介 -->
   <div class="author-card">
     <img src="assets/portrait.jpeg" alt="李白画像">
@@ -752,11 +796,6 @@ body {
         《静夜思》《将进酒》《望庐山瀑布》《早发白帝城》《蜀道难》
       </div>
     </div>
-  </div>
-
-  <!-- 注解小字 -->
-  <div class="gloss">
-    香炉峰 · 庐山北峰，云雾缭绕如炉　｜　银河 · 银汉，即天河也
   </div>
 
   <!-- 讲解面板 -->
