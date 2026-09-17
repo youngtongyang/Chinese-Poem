@@ -41,6 +41,7 @@ body {
   aspect-ratio: 16 / 9;
   background: var(--paper);
   overflow: hidden;
+  isolation: isolate;
   box-shadow: 0 24px 80px rgba(0,0,0,.6), 0 0 0 1px rgba(0,0,0,.4);
   /* 宣纸颗粒纹理 */
   background-image:
@@ -68,6 +69,7 @@ body {
   background-position: 58% 34%;
   background-repeat: no-repeat;
   opacity: 0;
+  background-color: var(--paper);
   mix-blend-mode: multiply;
 }
 .art.is-ready {
@@ -529,7 +531,7 @@ body {
 
 /* ── 平板 / 手机（竖版重排） ── */
 @media (max-width: 900px) {
-  html, body { padding: 0; align-items: flex-start; overflow-x: hidden; }
+  html, body { padding: 0; align-items: flex-start; overflow-x: hidden; background: var(--paper); }
 
   /* 舞台改为竖版，高度跟随内容，不再锁 9:16 */
   .stage {
@@ -545,23 +547,28 @@ body {
     overflow: hidden;
   }
 
-  /* 插画铺满整个背景，重心上移 */
+  /* 插画铺满整个背景，重心上移；不透明度与桌面一致，避免纸色压过原图 */
   .art {
     background-size: cover;
     background-position: 62% 18%;
   }
-  .art.is-ready { opacity: .85; }
-  /* 竖版：上下渐隐，中部留白给文字 */
+  .art.is-ready { opacity: .92; }
+  /* 竖版仍用宣纸托字，但中段少盖一层，减轻手机端发黄 */
   .art-veil {
     background:
       linear-gradient(to bottom,
-        rgba(236,226,205,.62) 0%,
-        rgba(236,226,205,.30) 18%,
-        rgba(236,226,205,.58) 42%,
-        rgba(236,226,205,.90) 68%,
-        rgba(236,226,205,.97) 100%),
+        rgba(236,226,205,.28) 0%,
+        rgba(236,226,205,.08) 16%,
+        rgba(236,226,205,.14) 40%,
+        rgba(236,226,205,.42) 64%,
+        rgba(236,226,205,.82) 84%,
+        rgba(236,226,205,.94) 100%),
       linear-gradient(to right,
-        rgba(236,226,205,.22), transparent 30%, transparent 70%, rgba(236,226,205,.22));
+        rgba(236,226,205,.12), transparent 22%, transparent 78%, rgba(236,226,205,.12));
+  }
+  .stage::before {
+    mix-blend-mode: normal;
+    opacity: .5;
   }
 
   /* 内容层改为纵向流式，不再绝对撑满 */

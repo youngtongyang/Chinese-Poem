@@ -26,6 +26,7 @@ body {
   aspect-ratio: 16 / 9;
   background: var(--paper);
   overflow: hidden;
+  isolation: isolate;
   box-shadow: 0 24px 80px rgba(0,0,0,.6), 0 0 0 1px rgba(0,0,0,.4);
   background-image:
     radial-gradient(rgba(140,120,90,.09) 1px, transparent 1px),
@@ -46,6 +47,7 @@ body {
   background-size: cover;
   background-position: center;
   opacity: 0;
+  background-color: var(--paper);
   mix-blend-mode: multiply;
   pointer-events: none;
 }
@@ -350,7 +352,7 @@ body {
 .toolbar a:hover, .toolbar button:hover { background: rgba(190,160,110,.20); color: #fff; }
 
 @media (max-width: 900px) {
-  html, body { padding: 0; align-items: flex-start; }
+  html, body { padding: 0; align-items: flex-start; background: var(--paper); }
   body { min-height: 100dvh; }
   .stage {
     width: 100%;
@@ -358,6 +360,10 @@ body {
     min-height: 100dvh;
     overflow: visible;
     box-shadow: none;
+  }
+  .stage::before {
+    mix-blend-mode: normal;
+    opacity: .5;
   }
   .header {
     position: relative; top: auto; left: auto;
