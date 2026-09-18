@@ -725,7 +725,7 @@ window.CATALOG = {
       authorId: 'sushi',
       lines: ['水光潋滟晴方好', '山色空蒙雨亦奇', '欲把西湖比西子', '淡妆浓抹总相宜'],
       gloss: ['潋滟 · 水波闪光', '西子 · 西施'],
-      art: { src: 'assets/yin-hu-shang.jpeg', size: '118% auto', position: '44% 50%' },
+      art: { src: 'assets/yin-hu-shang.jpeg', size: '118% auto', position: '44% 50%', sizeMobile: 'cover', positionMobile: '18% 52%' },
       notes: [
         { title: '创作背景', body: '苏轼在杭州，湖上先晴后雨。他不抱怨天气，把两种光都说成正好。从此西湖有了一个人的名字：西子。' },
         { title: '水光潋滟晴方好 · 山色空蒙雨亦奇', body: '晴好在水，雨奇在山。方好、亦奇，两边都不让。天气在变，评价不改。' },

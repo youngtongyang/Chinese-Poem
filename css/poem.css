@@ -567,68 +567,67 @@ body {
 @media (max-width: 900px) {
   html, body { padding: 0; align-items: flex-start; overflow-x: hidden; background: var(--paper); }
 
-  /* 舞台改为竖版，高度跟随内容，不再锁 9:16 */
+  /* 舞台改为竖版：插画只占标题+诗句这一层，作者简介在画下面 */
   .stage {
     width: 100%;
     aspect-ratio: auto;
     height: auto;
     min-height: 100vh;
-    min-height: 100dvh;              /* 移动端地址栏兼容 */
+    min-height: 100dvh;
     box-shadow: none;
     border-radius: 0;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    align-content: start;
     overflow-x: hidden;
     overflow-y: visible;
   }
 
-  /* 插画只铺第一屏，作者卡放到画外，避免挡住山水 */
+  /* 插画铺满舞台，下沿晕到纸色，和作者简介衔接 */
   .art,
   .art-veil {
-    inset: auto;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 100vh;
-    height: 100dvh;
+    grid-area: unset;
+    position: absolute;
+    inset: 0;
+    width: auto;
+    min-height: 0;
+    height: auto;
   }
   .art {
-    background-size: cover;
-    background-position: 62% 18%;
-  }
-  .art.is-ready { opacity: .92; }
-  /* 竖版托字：上沿保标题，中下段尽量留出插画 */
-  .art-veil {
-    background:
-      linear-gradient(to bottom,
-        rgba(236,226,205,.30) 0%,
-        rgba(236,226,205,.06) 18%,
-        rgba(236,226,205,.04) 48%,
-        rgba(236,226,205,.10) 78%,
-        rgba(236,226,205,.22) 100%),
-      linear-gradient(to right,
-        rgba(236,226,205,.12), transparent 22%, transparent 78%, rgba(236,226,205,.12));
-  }
-  .stage::before {
-    inset: auto;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 100vh;
-    height: 100dvh;
+    z-index: 1;
     mix-blend-mode: normal;
-    opacity: .5;
+    background-size: cover;
+    background-position: center 42%;
+    background-color: transparent;
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 62%, rgba(0,0,0,.55) 78%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 0%, #000 62%, rgba(0,0,0,.55) 78%, transparent 100%);
   }
+  .art.is-ready { opacity: 1; }
+  .art-veil {
+    z-index: 2;
+    background: linear-gradient(
+      to bottom,
+      rgba(236,226,205,.50) 0%,
+      rgba(236,226,205,.10) 10%,
+      transparent 18%,
+      transparent 58%,
+      rgba(236,226,205,.40) 78%,
+      rgba(236,226,205,.88) 100%
+    );
+  }
+  .stage::before { display: none; }
 
-  /* 标题和诗句占满第一屏，把作者卡顶到插画下方 */
+  /* 标题 + 诗句叠在插画上，诗句靠上 */
   .content {
+    grid-area: 1 / 1;
     position: relative;
     inset: auto;
+    z-index: 5;
     display: flex;
     flex-direction: column;
-    padding: 0;
-    min-height: 100vh;
-    min-height: 100dvh;
+    padding: 0 0 16px;
+    min-height: 0;
   }
 
   /* ── 左区 → 顶部标题区（横排居中） ── */
@@ -639,7 +638,11 @@ body {
     text-align: center;
     display: block;
   }
-  .left-panel::before { inset: -20% -10% -20% -10%; }
+  .left-panel::before {
+    inset: -8% 8% auto 8%;
+    height: 78%;
+    background: radial-gradient(ellipse at 50% 20%, rgba(238,229,211,.82) 0%, rgba(238,229,211,.28) 55%, rgba(238,229,211,0) 78%);
+  }
   .title-block {
     writing-mode: horizontal-tb;      /* 竖排 → 横排 */
     text-orientation: mixed;
@@ -741,13 +744,13 @@ body {
     margin: 0;
   }
 
-  /* ── 右区 → 诗句区（竖排，居中，4 列并排） ── */
+  /* ── 右区 → 诗句区（竖排，紧跟标题） ── */
   .right-panel {
-    flex: 1 1 auto;
+    flex: 0 0 auto;
     width: 100%;
-    padding: 18px 4vw 8px;
+    padding: 10px 4vw 6px;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     display: flex;
   }
   .poem {
@@ -799,7 +802,9 @@ body {
   .gloss {
     position: static;
     left: auto; right: auto; bottom: auto;
-    margin: 2px auto 12px;
+    grid-row: 2;
+    z-index: 5;
+    margin: 6px auto 4px;
     padding: 0 6vw;
     max-width: 92vw;
     text-align: center;
@@ -814,16 +819,19 @@ body {
   }
   .gloss-sep { display: none; }
 
-  /* ── 作者卡 → 插画下方通栏，不再压住山水 ── */
+  /* ── 作者卡：插画下方的纸色通栏，不压山水 ── */
   .author-card {
     position: relative;
     inset: auto;
     left: auto; right: auto; bottom: auto;
+    grid-row: 3;
+    z-index: 5;
     width: auto;
-    margin: 20px 5vw calc(72px + env(safe-area-inset-bottom, 0px));
+    margin: 4px 5vw calc(20px + env(safe-area-inset-bottom, 0px));
     padding: 14px 15px 13px;
     gap: 12px;
     opacity: 1;
+    background: rgba(244, 236, 220, .97);
     animation: cardInMobile .45s ease both;
   }
   .author-card img {
@@ -907,7 +915,7 @@ body {
   .poem { gap: clamp(6px, 2.6vw, 16px); }
   .poem.is-lushi .line { font-size: clamp(16px, 5.2vw, 22px); }
   .stage.is-wuyan .poem.is-lushi .line { font-size: clamp(19px, 6vw, 26px); }
-  .author-card { margin: 16px 4vw calc(72px + env(safe-area-inset-bottom, 0px)); padding: 12px; }
+  .author-card { margin: 4px 4vw calc(18px + env(safe-area-inset-bottom, 0px)); padding: 12px; }
   .author-desc { font-size: 11.5px; }
 }
 
@@ -916,7 +924,7 @@ body {
   .left-panel { padding-top: 5vh; }
   .title-main { font-size: clamp(24px, 6vh, 36px); }
   .content { min-height: 0; }
-  .art, .art-veil, .stage::before { height: 100%; }
+  .art, .art-veil { min-height: 0; }
   .author-card { margin: 3vh 6vw 3vh; }
   .author-desc { display: none; }      /* 矮屏优先保住诗句 */
 }

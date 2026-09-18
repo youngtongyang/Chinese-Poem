@@ -54,8 +54,14 @@ function renderPoem(poem, author, place) {
   if (poem.art && poem.art.src) {
     stage.classList.remove('no-art');
     art.style.backgroundImage = 'url("' + poem.art.src + '")';
-    if (poem.art.size) art.style.backgroundSize = poem.art.size;
-    if (poem.art.position) art.style.backgroundPosition = poem.art.position;
+    var mobile = window.matchMedia('(max-width: 900px)').matches;
+    if (mobile) {
+      art.style.backgroundSize = poem.art.sizeMobile || 'cover';
+      art.style.backgroundPosition = poem.art.positionMobile || poem.art.position || 'center 42%';
+    } else {
+      if (poem.art.size) art.style.backgroundSize = poem.art.size;
+      if (poem.art.position) art.style.backgroundPosition = poem.art.position;
+    }
   } else {
     stage.classList.add('no-art');
     art.style.backgroundImage = 'none';
