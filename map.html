@@ -6,7 +6,7 @@
 <meta name="color-scheme" content="light">
 <link rel="icon" type="image/png" href="favicon.png">
 <title>中国诗文文化地图</title>
-<link rel="stylesheet" href="css/map.css">
+<link rel="stylesheet" href="css/map.css?v=zone2">
 </head>
 <body>
 <div class="stage" id="stage">
@@ -73,8 +73,8 @@
       </g>
       <path d="M210 430 C280 390, 360 430, 430 400 C520 360, 620 430, 720 410 C780 398, 820 430, 860 470"
         fill="none" stroke="url(#river)" stroke-width="9" stroke-linecap="round"/>
-      <!-- 洞庭湖面：点位 (636,510) 西侧一抹，不另叠楼阁 -->
-      <ellipse cx="612" cy="502" rx="28" ry="11" fill="#c5d6cf" opacity=".45"/>
+      <!-- 洞庭湖面：贴着点位西侧一抹，不另叠楼阁 -->
+      <ellipse cx="654" cy="502" rx="28" ry="11" fill="#c5d6cf" opacity=".45"/>
 
       <g id="placeLayer"></g>
     </svg>
@@ -87,21 +87,26 @@
   <div class="panel-scrim" id="panelScrim"></div>
   <aside class="place-panel" id="placePanel" aria-hidden="true">
     <button class="place-panel-close" id="panelClose" type="button">关闭</button>
-    <div class="place-kicker" id="panelKicker">风土人情</div>
-    <h2 id="panelTitle"></h2>
-    <p class="place-region" id="panelRegion"></p>
-    <p class="place-lead" id="panelLead"></p>
-    <div id="panelSections"></div>
-    <h3 class="place-poems-title">此地诗篇</h3>
-    <div class="place-poems" id="panelPoems"></div>
+    <figure class="place-scroll" id="panelScroll" hidden>
+      <span class="scroll-rod scroll-rod-top" aria-hidden="true"></span>
+      <div class="scroll-mount">
+        <img id="panelArt" alt="">
+      </div>
+      <span class="scroll-rod scroll-rod-bottom" aria-hidden="true"></span>
+    </figure>
+    <div class="place-copy">
+      <div class="place-kicker" id="panelKicker">风土人情</div>
+      <h2 id="panelTitle"></h2>
+      <p class="place-region" id="panelRegion"></p>
+      <p class="place-lead" id="panelLead"></p>
+      <div id="panelSections"></div>
+      <h3 class="place-poems-title">此地诗篇</h3>
+      <div class="place-poems" id="panelPoems"></div>
+    </div>
   </aside>
 </div>
 
-<div class="toolbar" id="toolbar">
-  <button id="btnHide" type="button">👁 隐藏工具列 (H)</button>
-</div>
-
-<script src="data/catalog.js"></script>
-<script src="js/map.js"></script>
+<script src="data/catalog.js?v=20260918b"></script>
+<script src="js/map.js?v=zone1"></script>
 </body>
 </html>

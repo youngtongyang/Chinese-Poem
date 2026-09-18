@@ -124,9 +124,21 @@ body {
   pointer-events: none; z-index: -1;
 }
 
-/* 竖排标题 */
-.title-block { writing-mode: vertical-rl; text-orientation: upright; display: flex; gap: 0; }
+/* 竖排标题：年级 / 体裁 / 诗题 从右到左各占一列，禁止折列 */
+.title-block {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 auto;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  gap: .75em;
+  max-height: none;
+}
 .title-main {
+  flex: none;
+  white-space: nowrap;
   font-size: clamp(26px, 2.9vw, 48px);
   font-weight: 700;
   letter-spacing: .30em;
@@ -134,22 +146,40 @@ body {
   text-shadow: 0 1px 0 rgba(255,255,255,.35), 0 2px 8px rgba(120,95,60,.14);
 }
 .stage.title-tight .title-main {
-  font-size: clamp(18px, 1.85vw, 32px);
+  font-size: clamp(24px, 2.35vw, 40px);
   letter-spacing: .16em;
 }
 .stage.title-xlong .title-main {
-  font-size: clamp(15px, 1.45vw, 24px);
+  font-size: clamp(22px, 2.1vw, 34px);
+  letter-spacing: .12em;
+}
+.stage.title-xxlong .title-main {
+  font-size: clamp(20px, 1.9vw, 30px);
   letter-spacing: .10em;
 }
 .stage.title-tight .title-sub {
-  font-size: clamp(9px, 0.7vw, 12px);
-  letter-spacing: .4em;
+  font-size: clamp(12px, 1.05vw, 16px);
+  letter-spacing: .24em;
 }
 .title-sub {
-  font-size: clamp(10px, 0.82vw, 14px);
-  letter-spacing: .55em;
+  flex: none;
+  white-space: nowrap;
+  font-size: clamp(13px, 1.1vw, 17px);
+  letter-spacing: .28em;
   color: var(--ink-faint);
-  margin-right: .9em;
+  margin-right: 0;
+  align-self: flex-start;
+  padding-top: .3em;
+}
+.title-grade {
+  flex: none;
+  white-space: nowrap;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-size: clamp(13px, 1.1vw, 17px);
+  letter-spacing: .28em;
+  color: var(--seal);
+  margin-right: 0;
   align-self: flex-start;
   padding-top: .3em;
 }
@@ -240,6 +270,10 @@ body {
   gap: clamp(12px, 1.7vw, 32px);
 }
 .stage.is-wuyan .poem.is-lushi .line {
+  font-size: clamp(24px, 2.55vw, 42px);
+  letter-spacing: .28em;
+}
+.stage.is-wuyan .poem.is-jueju .line {
   font-size: clamp(24px, 2.55vw, 42px);
   letter-spacing: .28em;
 }
@@ -615,10 +649,22 @@ body {
     font-size: clamp(18px, 5.4vw, 26px);
     letter-spacing: .06em;
   }
+  .stage.title-xxlong .title-main {
+    font-size: clamp(16px, 4.8vw, 22px);
+    letter-spacing: .05em;
+  }
   .title-sub {
     writing-mode: horizontal-tb;
     font-size: clamp(11px, 2.6vw, 14px);
     letter-spacing: .32em;
+    margin: 0 0 8px;
+    padding: 0;
+    align-self: auto;
+  }
+  .title-grade {
+    writing-mode: horizontal-tb;
+    font-size: clamp(11px, 2.6vw, 14px);
+    letter-spacing: .28em;
     margin: 0 0 8px;
     padding: 0;
     align-self: auto;

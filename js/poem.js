@@ -34,9 +34,10 @@ function fitStage(poem) {
   const titleLen = poem.title.length;
   const lineCount = poem.lines.length;
   const lineChars = poem.lines.reduce(function (m, l) { return Math.max(m, l.length); }, 0);
-  stage.classList.remove('title-tight', 'title-xlong', 'is-wuyan', 'is-qiyan');
+  stage.classList.remove('title-tight', 'title-xlong', 'title-xxlong', 'is-wuyan', 'is-qiyan');
   if (titleLen >= 6) stage.classList.add('title-tight');
   if (titleLen >= 8) stage.classList.add('title-xlong');
+  if (titleLen >= 9) stage.classList.add('title-xxlong');
   if (lineChars <= 5) stage.classList.add('is-wuyan');
   else stage.classList.add('is-qiyan');
   stage.setAttribute('data-title-len', String(titleLen));
@@ -64,6 +65,12 @@ function renderPoem(poem, author, place) {
   titleMain.textContent = poem.title;
   titleMain.classList.toggle('is-long', poem.title.length > 5);
   document.getElementById('titleSub').textContent = poem.dynasty + ' · ' + poem.form;
+  var gradeEl = document.getElementById('titleGrade');
+  var grade = catalog().gradeLabel(poem);
+  if (gradeEl) {
+    gradeEl.textContent = grade;
+    gradeEl.hidden = !grade;
+  }
   document.getElementById('authorLine').textContent = author.name;
 
   const seal = document.getElementById('seal');
