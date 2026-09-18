@@ -252,10 +252,31 @@ function bindChrome() {
   renderPins();
   renderIndex();
   bindChrome();
+
+  var stageEl = document.getElementById('stage');
   var art = document.querySelector('.art');
-  var probe = new Image();
-  probe.onload = function () { art.classList.add('is-ready'); };
-  probe.src = 'assets/map.jpeg';
+  var sources = [
+    'assets/map.jpeg',
+    'assets/map-land-west.jpeg',
+    'assets/map-land-north.jpeg',
+    'assets/map-land-south.jpeg'
+  ];
+  var left = sources.length;
+  var painted = false;
+  function paint() {
+    if (painted) return;
+    painted = true;
+    stageEl.classList.add('is-painted');
+    if (art) art.classList.add('is-ready');
+  }
+  sources.forEach(function (src) {
+    var img = new Image();
+    img.onload = img.onerror = function () {
+      if (--left <= 0) paint();
+    };
+    img.src = src;
+  });
+  setTimeout(paint, 2800);
 
   var fromHash = placeIdFromHash();
   if (fromHash) openPlace(fromHash, false);

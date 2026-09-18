@@ -6,7 +6,11 @@
 <meta name="color-scheme" content="light">
 <link rel="icon" type="image/png" href="favicon.png">
 <title>中国诗文文化地图</title>
-<link rel="stylesheet" href="css/map.css?v=zone2">
+<link rel="preload" as="image" href="assets/map.jpeg" fetchpriority="high">
+<link rel="preload" as="image" href="assets/map-land-west.jpeg">
+<link rel="preload" as="image" href="assets/map-land-north.jpeg">
+<link rel="preload" as="image" href="assets/map-land-south.jpeg">
+<link rel="stylesheet" href="css/map.css?v=zone3">
 </head>
 <body>
 <div class="stage" id="stage">
@@ -22,9 +26,9 @@
     <svg viewBox="0 0 1100 780" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" aria-label="中国诗文地理示意">
       <defs>
         <linearGradient id="landFill" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stop-color="#d8e4ce"/>
-          <stop offset="42%" stop-color="#c5d4b8"/>
-          <stop offset="100%" stop-color="#b3c6a8"/>
+          <stop offset="0%" stop-color="#ece2cd"/>
+          <stop offset="42%" stop-color="#e6dcc8"/>
+          <stop offset="100%" stop-color="#e0d4bc"/>
         </linearGradient>
         <linearGradient id="river" x1="0" y1="0" x2="1" y2="0">
           <stop offset="0%" stop-color="#c5d6cf" stop-opacity=".15"/>
@@ -74,7 +78,7 @@
       <path d="M210 430 C280 390, 360 430, 430 400 C520 360, 620 430, 720 410 C780 398, 820 430, 860 470"
         fill="none" stroke="url(#river)" stroke-width="9" stroke-linecap="round"/>
       <!-- 洞庭湖面：贴着点位西侧一抹，不另叠楼阁 -->
-      <ellipse cx="654" cy="502" rx="28" ry="11" fill="#c5d6cf" opacity=".45"/>
+      <ellipse cx="654" cy="502" rx="28" ry="11" fill="#d8cfc0" opacity=".35"/>
 
       <g id="placeLayer"></g>
     </svg>
@@ -107,6 +111,6 @@
 </div>
 
 <script src="data/catalog.js?v=20260918b"></script>
-<script src="js/map.js?v=zone1"></script>
+<script src="js/map.js?v=zone2"></script>
 </body>
 </html>
