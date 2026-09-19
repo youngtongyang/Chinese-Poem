@@ -15,7 +15,16 @@ function padIndex(i) {
 }
 
 function tagWidth(name) {
-  return Math.max(72, 38 + name.length * 15);
+  return 52 + name.length * 16;
+}
+
+function labelOffset(place, tw, th) {
+  var side = (place.map.label && place.map.label.side) || (place.map.x > 720 ? 'left' : 'right');
+  var y = place.map.y < 70 ? 14 : -30;
+  if (side === 'left') return { x: -12 - tw, y: y };
+  if (side === 'top') return { x: -tw / 2, y: -16 - th };
+  if (side === 'bottom') return { x: -tw / 2, y: 14 };
+  return { x: 12, y: y };
 }
 
 function pinMarkup(place, index) {
@@ -24,9 +33,7 @@ function pinMarkup(place, index) {
   var x = place.map.x, y = place.map.y;
   var tw = tagWidth(place.name);
   var th = 22;
-  var side = x > 720 ? 'left' : 'right';
-  var lx = side === 'right' ? 12 : -12 - tw;
-  var ly = y < 70 ? 14 : -30;
+  var off = labelOffset(place, tw, th);
 
   return [
     '<g class="place-pin" data-place="' + place.id + '"',
@@ -35,7 +42,7 @@ function pinMarkup(place, index) {
     '<circle class="hit" r="22" fill="transparent"/>',
     '<circle class="pin-ring" r="8" fill="none" stroke="#9c3b2e" stroke-width="1.1"/>',
     '<circle class="pin-dot" r="3.6" fill="#9c3b2e"/>',
-    '<g class="pin-label" transform="translate(' + lx + ' ' + ly + ')">',
+    '<g class="pin-label" transform="translate(' + off.x + ' ' + off.y + ')">',
     '<rect class="pin-tag" x="0" y="0" width="' + tw + '" height="' + th + '" rx="' + (th / 2) + '"/>',
     '<text class="pin-index" x="11" y="' + (th / 2 + 1) + '" font-size="11" fill="#9c3b2e" dominant-baseline="middle">' + n + '</text>',
     '<text class="pin-name" x="32" y="' + (th / 2 + 1) + '" font-size="13" fill="#2b2118" dominant-baseline="middle">' + name + '</text>',

@@ -127,8 +127,8 @@ window.CATALOG = {
       region: '四川成都',
       zone: '巴蜀',
       map: {
-        x: 415, y: 477,
-        label: { x: 328, y: 508, side: 'left' },
+        x: 504, y: 477,
+        label: { x: 418, y: 508, side: 'left' },
         card: 'assets/vignette-caotang.jpeg'
       },
       culture: {
@@ -317,6 +317,120 @@ window.CATALOG = {
             title: '风土',
             body: '黄梅、绿阴、黄鹂，是初夏山道的气味。人不写名山大川，只写走了一天的路，反而像真的到过。'
           }
+        ]
+      }
+    },
+    {
+      id: 'yiwu',
+      name: '义乌',
+      region: '浙江义乌',
+      zone: '东南',
+      map: {
+        x: 822, y: 540,
+        label: { x: 838, y: 575, side: 'right' },
+        card: 'assets/vignette-yiwu.jpeg'
+      },
+      culture: {
+        lead: '骆宾王的故乡。浦阳江边的水塘、白鹅，是《咏鹅》里最早的声音：曲项、白毛、红掌。',
+        sections: [
+          { title: '江塘', body: '义乌在浙东丘陵，浦阳江穿城。孩童看见的不是名湖，是门前一塘绿水。鹅叫起来，诗就有了起句。' },
+          { title: '地望', body: '唐婺州义乌，即今浙江义乌。骆宾王七岁作《咏鹅》，后来以诗文名世，起点却是这片江东水乡。' },
+          { title: '风土', body: '白鹅、绿水、红掌，颜色只有三种。江南最日常的一塘水，被一个孩子喊成了四句。' }
+        ]
+      }
+    },
+    {
+      id: 'xiangyang',
+      name: '襄阳',
+      region: '湖北襄阳',
+      zone: '长江',
+      map: {
+        x: 642, y: 446,
+        label: { x: 520, y: 456, side: 'left' },
+        card: 'assets/vignette-xiangyang.jpeg'
+      },
+      culture: {
+        lead: '汉水边的城。孟浩然在这里眠春、听鸟、过故人庄。啼鸟与风雨，都是襄阳城外最普通的早晨。',
+        sections: [
+          { title: '汉水', body: '襄阳临汉水，城南有鹿门。孟浩然隐居于此，诗多写故园：春晓、故人、江上。' },
+          { title: '地望', body: '今湖北襄阳。汉水折向东南，是南北舟车的交会。课文里的春眠，说的是这座城外的夜与晓。' },
+          { title: '风土', body: '春雨一夜，花落多少，不必远行才知道。襄阳把春天写成枕边的事。' }
+        ]
+      }
+    },
+    {
+      id: 'taohuatan',
+      name: '桃花潭',
+      region: '安徽泾县',
+      zone: '东南',
+      map: {
+        x: 720, y: 448,
+        label: { x: 600, y: 438, side: 'left' },
+        card: 'assets/vignette-taohuatan.jpeg'
+      },
+      culture: {
+        lead: '泾县青弋江上的一湾深潭。李白将行，岸上踏歌，汪伦以深千尺的潭水比送别。',
+        sections: [
+          { title: '潭', body: '桃花潭在泾县西南，江水碧而深。岸花、踏歌、客舟，是一次普通的送行，被写成了深情。' },
+          { title: '地望', body: '今安徽宣城泾县。青弋江至此湾深，唐时已是往来宣州的水路。潭以诗名，不以险。' },
+          { title: '风土', body: '踏歌是乡人的节奏。水深千尺，仍不及这一次岸上的声音。' }
+        ]
+      }
+    },
+    {
+      id: 'yongzhou',
+      name: '永州',
+      region: '湖南永州',
+      zone: '长江',
+      map: {
+        x: 628, y: 548,
+        label: { x: 510, y: 568, side: 'left' },
+        card: 'assets/vignette-yongzhou.jpeg'
+      },
+      culture: {
+        lead: '潇水与湘水会合处。柳宗元贬居十年，江雪、孤舟、蓑笠，都是永州冬天的冷。',
+        sections: [
+          { title: '潇湘', body: '永州在湘南，山深水寒。柳宗元写《江雪》，不是旅游，是把贬所的空写成千山鸟绝。' },
+          { title: '地望', body: '今湖南永州。唐时为南荒边州。孤舟独钓，钓的是江，也是一个人的位置。' },
+          { title: '风土', body: '雪、江、舟、钓，四样东西，人几乎看不见。冷是气候，也是心。' }
+        ]
+      }
+    },
+    {
+      id: 'jinling',
+      name: '金陵',
+      region: '江苏南京',
+      zone: '东南',
+      map: {
+        x: 792, y: 432,
+        label: { x: 810, y: 400, side: 'right' },
+        card: 'assets/vignette-jinling.jpeg'
+      },
+      culture: {
+        lead: '长江下游的旧都。王安石在这里看见墙角梅花：凌寒、暗香，雪一样，却不是雪。',
+        sections: [
+          { title: '钟山', body: '金陵北临长江，东有钟山。王安石晚年居半山园，诗里的梅，是冬天院子里的那几枝。' },
+          { title: '地望', body: '今江苏南京。六朝故都，宋时为江宁。墙角梅不在名园，在人迹少处。' },
+          { title: '风土', body: '暗香比颜色先到。金陵的冬，常被这一枝说完。' }
+        ]
+      }
+    },
+    {
+      id: 'putian',
+      name: '圃田',
+      region: '河南郑州',
+      zone: '中原',
+      map: {
+        x: 688, y: 430,
+        label: { x: 704, y: 396, side: 'right' },
+        card: 'assets/vignette-putian.jpeg'
+      },
+      culture: {
+        lead: '中原田野。胡令能写蓬头稚子侧坐莓苔，路人一问，孩子只招手：怕鱼惊。',
+        sections: [
+          { title: '田塘', body: '圃田在郑州之东，古为泽薮。不是名胜，是孩子学钓鱼的岸。苔、草、竿，比城楼更日常。' },
+          { title: '地望', body: '今河南郑州中牟一带。黄河以南的平田。小儿垂钓，钓的是中原春天的闲。' },
+          { title: '风土', body: '不应人，是因为鱼。中原的孩子把一场问答，让给了水里的事。' }
         ]
       }
     }
@@ -853,6 +967,386 @@ window.CATALOG = {
         { title: '艺术特色', body: '前两句直说，后两句换视角。王维的克制，是把「我想家」写成「家里少我」。' },
         { title: '朗读要点', body: '「异乡」「异客」叠着读。<br>末句「少一人」放轻，像点名点到空处。' }
       ]
+    },
+    {
+      id: 'yong-e',
+      placeId: 'yiwu',
+      title: '咏鹅',
+      dynasty: '唐',
+      form: '五言',
+      grade: 1,
+      volume: '上',
+      authorId: 'luobinwang',
+      lines: ['鹅鹅鹅', '曲项向天歌', '白毛浮绿水', '红掌拨清波'],
+      gloss: ['曲项 · 弯着脖子', '拨 · 划水'],
+      art: { src: 'assets/yong-e.jpeg', size: '118% auto', position: '44% 52%' },
+      notes: [
+        { title: '创作背景', body: '相传骆宾王七岁所作。没有典故，只有一只鹅：白毛、绿水、红掌。课文收它，是让孩子用颜色和声音认识诗。' },
+        { title: '鹅鹅鹅 · 曲项向天歌', body: '三声「鹅」是叫声，也是题目。曲项向天，脖子一弯，歌就有了方向。' },
+        { title: '白毛浮绿水 · 红掌拨清波', body: '白、绿、红，三种颜色并排。浮和拨是两个动作：身子在水上，脚在水下。' },
+        { title: '艺术特色', body: '短句、叠字、颜色。几乎没有生字以外的难度，却把一只鹅写完整了。' },
+        { title: '朗读要点', body: '「鹅鹅鹅」要响、要连。<br>后两句对得很齐，「浮」「拨」轻轻点出。' }
+      ]
+    },
+    {
+      id: 'jiangnan-yuefu',
+      placeId: 'jiangnan',
+      title: '江南',
+      dynasty: '汉',
+      form: '乐府',
+      grade: 1,
+      volume: '上',
+      authorId: 'yuefu',
+      lines: ['江南可采莲', '莲叶何田田', '鱼戏莲叶间', '鱼戏莲叶东', '鱼戏莲叶西', '鱼戏莲叶南', '鱼戏莲叶北'],
+      gloss: ['田田 · 莲叶长得饱满相连', '戏 · 游玩'],
+      art: { src: 'assets/jiangnan-yuefu.jpeg', size: '118% auto', position: '46% 50%' },
+      notes: [
+        { title: '创作背景', body: '汉乐府民歌。没有作者姓名，只有江南、莲叶和鱼。东西南北绕一圈，像孩子在荷塘边指认方向。' },
+        { title: '江南可采莲 · 莲叶何田田', body: '可采，是说时候对了。田田，是叶挨着叶，密得发亮。' },
+        { title: '鱼戏莲叶间 · 东西南北', body: '鱼在叶间、叶东、叶西、叶南、叶北。方向重复，快乐也重复。' },
+        { title: '艺术特色', body: '回环复沓，像歌。不讲道理，只让鱼把东南西北游一遍。' },
+        { title: '朗读要点', body: '前两句打开，田田要饱满。<br>后五句像绕圈，东、西、南、北要读清楚，却不要喊。' }
+      ]
+    },
+    {
+      id: 'hua',
+      placeId: 'jiangnan',
+      title: '画',
+      dynasty: '唐',
+      form: '五言绝句',
+      grade: 1,
+      volume: '上',
+      authorId: 'yiming',
+      lines: ['远看山有色', '近听水无声', '春去花还在', '人来鸟不惊'],
+      gloss: ['色 · 颜色', '惊 · 受惊飞走'],
+      art: { src: 'assets/hua.jpeg', size: '118% auto', position: '34% 70%' },
+      notes: [
+        { title: '创作背景', body: '无名氏写一幅画。远看有颜色，近听没有声音；春去了花还在，人来了鸟不飞。课文用它教孩子分辨真景和画景。' },
+        { title: '远看山有色 · 近听水无声', body: '山有色，所以像真的；水无声，所以是画。远和近，是两步观察。' },
+        { title: '春去花还在 · 人来鸟不惊', body: '花不谢，鸟不惊。时间停住了，人走进去也吵不醒它们。' },
+        { title: '艺术特色', body: '四句全是谜面，谜底是「画」。没有说出那个字，孩子自己会喊出来。' },
+        { title: '朗读要点', body: '远、近、春去、人来，四个动作要分开。<br>「无声」「不惊」放轻，像怕真的惊着画里的鸟。' }
+      ]
+    },
+    {
+      id: 'minnong-er',
+      placeId: 'jiangnan',
+      title: '悯农（其二）',
+      dynasty: '唐',
+      form: '五言绝句',
+      grade: 1,
+      volume: '上',
+      authorId: 'lishen',
+      lines: ['锄禾日当午', '汗滴禾下土', '谁知盘中餐', '粒粒皆辛苦'],
+      gloss: ['悯 · 同情', '禾 · 谷类作物'],
+      art: { src: 'assets/minnong-er.jpeg', size: '118% auto', position: '44% 48%' },
+      notes: [
+        { title: '创作背景', body: '李绅写农民在正午锄地。汗滴进土里，盘中的饭才有来处。课文先教这一首，是把「惜食」说成看得见的劳动。' },
+        { title: '锄禾日当午 · 汗滴禾下土', body: '日在正中，锄在田里。汗不是修辞，是一滴一滴落到根边。' },
+        { title: '谁知盘中餐 · 粒粒皆辛苦', body: '谁知，是问。粒粒，是数。每一粒都连着那一滴汗。' },
+        { title: '艺术特色', body: '从田里收到盘里，空间只换了一次。没有典故，只有午、汗、餐、粒。' },
+        { title: '朗读要点', body: '前两句沉，锄、滴要有重量。<br>「谁知」稍问，「粒粒」一字一顿。' }
+      ]
+    },
+    {
+      id: 'gu-lang-yue-xing',
+      placeId: 'caotang',
+      title: '古朗月行',
+      dynasty: '唐',
+      form: '五言',
+      grade: 1,
+      volume: '上',
+      authorId: 'libai',
+      lines: ['小时不识月', '呼作白玉盘', '又疑瑶台镜', '飞在青云端'],
+      gloss: ['呼作 · 把它叫作', '瑶台 · 传说中的仙台'],
+      art: { src: 'assets/gu-lang-yue-xing.jpeg', size: '118% auto', position: '50% 40%' },
+      notes: [
+        { title: '创作背景', body: '李白《古朗月行》开头四句，课文节选。小时不认识月亮，叫它白玉盘，又疑是瑶台的镜子飞在云上。是巴蜀孩子看天的那一刻。' },
+        { title: '小时不识月 · 呼作白玉盘', body: '不识，所以敢叫。玉盘是家里见过的器物，拿来安在天上。' },
+        { title: '又疑瑶台镜 · 飞在青云端', body: '又疑，是第二种猜。镜子会飞，飞到青云里。想象比认识更先到。' },
+        { title: '艺术特色', body: '李白写月，常常从孩童的错认开始。错认不是笑话，是诗的入口。' },
+        { title: '朗读要点', body: '「不识」「呼作」要天真。<br>「又疑」轻轻转，末句「飞」字送上去。' }
+      ]
+    },
+    {
+      id: 'feng',
+      placeId: 'changan',
+      title: '风',
+      dynasty: '唐',
+      form: '五言绝句',
+      grade: 1,
+      volume: '上',
+      authorId: 'liqiao',
+      lines: ['解落三秋叶', '能开二月花', '过江千尺浪', '入竹万竿斜'],
+      gloss: ['解 · 能够', '斜 · 被风吹斜'],
+      art: { src: 'assets/feng.jpeg', size: '118% auto', position: '46% 44%' },
+      notes: [
+        { title: '创作背景', body: '李峤写风。风看不见，他只写风做过的事：落叶、开花、起浪、斜竹。课文用它教孩子认识「空」的力量。' },
+        { title: '解落三秋叶 · 能开二月花', body: '秋天能让叶落，春天能让花开。同一阵风，季节不同，本事不同。' },
+        { title: '过江千尺浪 · 入竹万竿斜', body: '过江，浪有千尺；入竹，万竿都斜。风一到，水和竹都让路。' },
+        { title: '艺术特色', body: '四句四个动词：落、开、过、入。风始终不出场，出场的是被它改过的世界。' },
+        { title: '朗读要点', body: '前两句对照，秋与春。<br>后两句要有力，「千尺」「万竿」托住，斜字收。' }
+      ]
+    },
+    {
+      id: 'chun-xiao',
+      placeId: 'xiangyang',
+      title: '春晓',
+      dynasty: '唐',
+      form: '五言绝句',
+      grade: 1,
+      volume: '下',
+      authorId: 'menghaoran',
+      lines: ['春眠不觉晓', '处处闻啼鸟', '夜来风雨声', '花落知多少'],
+      gloss: ['晓 · 天亮', '知多少 · 不知道落了多少'],
+      art: { src: 'assets/chun-xiao.jpeg', size: '118% auto', position: '48% 42%' },
+      notes: [
+        { title: '创作背景', body: '孟浩然写襄阳的春晨。睡过了天亮，先听见鸟，再想起夜里的风雨，才问花落了多少。人还在枕上，春天已经忙完一夜。' },
+        { title: '春眠不觉晓 · 处处闻啼鸟', body: '不觉，是睡得深。处处，是鸟把四面都叫醒了。' },
+        { title: '夜来风雨声 · 花落知多少', body: '夜里的声音还在耳朵里。花落多少，他不知道，只留下这一问。' },
+        { title: '艺术特色', body: '四句都在屋里：眠、闻、声、知。春在窗外，人用听的。' },
+        { title: '朗读要点', body: '前两句懒、软，啼鸟再亮起来。<br>后两句放低，「知多少」像问自己。' }
+      ]
+    },
+    {
+      id: 'zeng-wang-lun',
+      placeId: 'taohuatan',
+      title: '赠汪伦',
+      dynasty: '唐',
+      form: '七言绝句',
+      grade: 1,
+      volume: '下',
+      authorId: 'libai',
+      lines: ['李白乘舟将欲行', '忽闻岸上踏歌声', '桃花潭水深千尺', '不及汪伦送我情'],
+      gloss: ['踏歌 · 踏着拍子唱歌', '不及 · 比不上'],
+      art: { src: 'assets/zeng-wang-lun.jpeg', size: '118% auto', position: '46% 50%' },
+      notes: [
+        { title: '创作背景', body: '李白将离泾县桃花潭，汪伦来送。岸上踏歌，潭水千尺，仍不及这一次送别。深情被说成可以比较的深度。' },
+        { title: '李白乘舟将欲行 · 忽闻岸上踏歌声', body: '将欲行，船已经要走。忽闻，是没想到还有歌声。送别从耳朵里开始。' },
+        { title: '桃花潭水深千尺 · 不及汪伦送我情', body: '潭水先被说得很深，情更深。比较不是算术，是把看不见的情，放进看得见的水。' },
+        { title: '艺术特色', body: '先叙事，后比喻。李白写友情，常用一个极大的物来垫底，再让人情把它比下去。' },
+        { title: '朗读要点', body: '前两句要有船、有歌。<br>「深千尺」拉长，末句「不及」轻轻压过水面。' }
+      ]
+    },
+    {
+      id: 'jing-ye-si',
+      placeId: 'changan',
+      title: '静夜思',
+      dynasty: '唐',
+      form: '五言绝句',
+      grade: 1,
+      volume: '下',
+      authorId: 'libai',
+      lines: ['床前明月光', '疑是地上霜', '举头望明月', '低头思故乡'],
+      gloss: ['疑 · 怀疑，以为', '举头 · 抬头'],
+      art: { src: 'assets/jing-ye-si.jpeg', size: '118% auto', position: '50% 38%' },
+      notes: [
+        { title: '创作背景', body: '李白客中望月。床前的光像霜，抬头是月，低头是故乡。课文收它，因为它把想家写成两个动作。' },
+        { title: '床前明月光 · 疑是地上霜', body: '光先到，霜是错认。夜里的白，让人以为地冷了。' },
+        { title: '举头望明月 · 低头思故乡', body: '举头、低头，只换了一个方向。月还是那个月，人已经回到家里。' },
+        { title: '艺术特色', body: '二十字，没有地名，没有典故。想家的人，在任何床前都能用。' },
+        { title: '朗读要点', body: '前两句静，霜字凉。<br>举头稍扬，低头收，「故乡」放慢。' }
+      ]
+    },
+    {
+      id: 'xun-yin-zhe-bu-yu',
+      placeId: 'changan',
+      title: '寻隐者不遇',
+      dynasty: '唐',
+      form: '五言绝句',
+      grade: 1,
+      volume: '下',
+      authorId: 'jiadao',
+      lines: ['松下问童子', '言师采药去', '只在此山中', '云深不知处'],
+      gloss: ['童子 · 隐者的小徒弟', '处 · 所在'],
+      art: { src: 'assets/xun-yin-zhe-bu-yu.jpeg', size: '118% auto', position: '48% 44%' },
+      notes: [
+        { title: '创作背景', body: '贾岛去寻一位隐者，没遇上。童子说：老师采药去了，就在这山里，云深，不知道在哪。人没找到，山却更深了。' },
+        { title: '松下问童子 · 言师采药去', body: '问在松下。答是采药。一问一答，隐者始终不出场。' },
+        { title: '只在此山中 · 云深不知处', body: '只在，是近；不知处，是远。同一座山，被云隔成了找不着。' },
+        { title: '艺术特色', body: '全是对话，没有描写隐者。不遇，反而把「隐」写成功了。' },
+        { title: '朗读要点', body: '问要真问，答要清。<br>「云深不知处」放轻、放远，不要读成迷路的焦急。' }
+      ]
+    },
+    {
+      id: 'chi-shang',
+      placeId: 'jiangnan',
+      title: '池上',
+      dynasty: '唐',
+      form: '五言绝句',
+      grade: 1,
+      volume: '下',
+      authorId: 'baijuyi',
+      lines: ['小娃撑小艇', '偷采白莲回', '不解藏踪迹', '浮萍一道开'],
+      gloss: ['艇 · 小船', '踪迹 · 走过的痕迹'],
+      art: { src: 'assets/chi-shang.jpeg', size: '118% auto', position: '44% 52%' },
+      notes: [
+        { title: '创作背景', body: '白居易写池上的孩子。偷采白莲，却不会藏踪迹，浮萍被撑开一道。顽皮被水自己说出来了。' },
+        { title: '小娃撑小艇 · 偷采白莲回', body: '小对小。偷是心思，回是得手。白莲已经在船上。' },
+        { title: '不解藏踪迹 · 浮萍一道开', body: '不解，是还不会。萍开一道，像签名。孩子走了，池还记得。' },
+        { title: '艺术特色', body: '不责备，只看见。白居易写儿童，常把笑意留在最后一行的痕迹里。' },
+        { title: '朗读要点', body: '前两句轻快，偷字不必太奸。<br>「不解」会心，末句像看见那一道开。' }
+      ]
+    },
+    {
+      id: 'xiao-chi',
+      placeId: 'jiangnan',
+      title: '小池',
+      dynasty: '宋',
+      form: '七言绝句',
+      grade: 1,
+      volume: '下',
+      authorId: 'yangwanli',
+      lines: ['泉眼无声惜细流', '树阴照水爱晴柔', '小荷才露尖尖角', '早有蜻蜓立上头'],
+      gloss: ['泉眼 · 泉水的出口', '尖尖角 · 荷叶刚钻出水面的嫩角'],
+      art: { src: 'assets/xiao-chi.jpeg', size: '118% auto', position: '46% 54%' },
+      notes: [
+        { title: '创作背景', body: '杨万里写一方小池。泉眼惜着细流，树阴爱着晴柔，小荷才露角，蜻蜓已经站上去。夏天从最小的地方开始。' },
+        { title: '泉眼无声惜细流 · 树阴照水爱晴柔', body: '惜和爱，都是人给物的心情。水细、阴柔，池还很小。' },
+        { title: '小荷才露尖尖角 · 早有蜻蜓立上头', body: '才露，已经有蜻蜓。早，是抢先。尖尖角上站着一个夏天。' },
+        { title: '艺术特色', body: '诚斋体：把小东西写得很忙。荷与蜻蜓的先后，比大荷塘更像真的看见。' },
+        { title: '朗读要点', body: '前两句软，惜、爱轻轻的。<br>「才露」与「早有」要对上，尖尖角要嫩。' }
+      ]
+    },
+    {
+      id: 'hua-ji',
+      placeId: 'jiangnan',
+      title: '画鸡',
+      dynasty: '明',
+      form: '七言绝句',
+      grade: 1,
+      volume: '下',
+      authorId: 'tangyin',
+      lines: ['头上红冠不用裁', '满身雪白走将来', '平生不敢轻言语', '一叫千门万户开'],
+      gloss: ['裁 · 剪裁', '轻言语 · 随便叫'],
+      art: { src: 'assets/hua-ji.jpeg', size: '118% auto', position: '42% 48%' },
+      notes: [
+        { title: '创作背景', body: '唐寅题画鸡。红冠不用裁，白身走过来；平时不乱叫，一叫千门万户都开。是鸡，也是一种做人的响亮。' },
+        { title: '头上红冠不用裁 · 满身雪白走将来', body: '冠是现成的红，身是一身白。走将来，像从画里走到门槛。' },
+        { title: '平生不敢轻言语 · 一叫千门万户开', body: '不敢轻，是珍惜这一叫。一叫，门都开了。黎明被一只鸡说成职责。' },
+        { title: '艺术特色', body: '题画而不复述羽毛。唐寅把鸡的叫声，写成对整个城的叫醒。' },
+        { title: '朗读要点', body: '前两句亮，红冠、雪白。<br>「不敢轻」收住，末句「一叫」打开。' }
+      ]
+    },
+    {
+      id: 'mei-hua',
+      placeId: 'jinling',
+      title: '梅花',
+      dynasty: '宋',
+      form: '五言绝句',
+      grade: 2,
+      volume: '上',
+      authorId: 'wanganshi',
+      lines: ['墙角数枝梅', '凌寒独自开', '遥知不是雪', '为有暗香来'],
+      gloss: ['凌寒 · 冒着寒冷', '暗香 · 清幽的香气'],
+      art: { src: 'assets/mei-hua.jpeg', size: '118% auto', position: '44% 46%' },
+      notes: [
+        { title: '创作背景', body: '王安石写墙角梅。凌寒独自开，远看像雪，却有暗香。不是雪，是因为它先让鼻子知道。' },
+        { title: '墙角数枝梅 · 凌寒独自开', body: '墙角、数枝、独自。位置偏，开得少，开在冷里。' },
+        { title: '遥知不是雪 · 为有暗香来', body: '遥知，是远远就判断。香比颜色更可靠。' },
+        { title: '艺术特色', body: '梅不写繁花。王安石用「不是雪」一转，把香说成证据。' },
+        { title: '朗读要点', body: '前两句冷、少。<br>「不是雪」稍顿，暗香来要清。' }
+      ]
+    },
+    {
+      id: 'xiao-er-chui-diao',
+      placeId: 'putian',
+      title: '小儿垂钓',
+      dynasty: '唐',
+      form: '七言绝句',
+      grade: 2,
+      volume: '上',
+      authorId: 'hulingneng',
+      lines: ['蓬头稚子学垂纶', '侧坐莓苔草映身', '路人借问遥招手', '怕得鱼惊不应人'],
+      gloss: ['垂纶 · 钓鱼', '莓苔 · 青苔'],
+      art: { src: 'assets/xiao-er-chui-diao.jpeg', size: '118% auto', position: '46% 52%' },
+      notes: [
+        { title: '创作背景', body: '胡令能写学钓鱼的孩子。蓬头、侧坐、莓苔，路人一问，他只招手：怕鱼惊。一场问答，让给了水。' },
+        { title: '蓬头稚子学垂纶 · 侧坐莓苔草映身', body: '蓬头是顾不上头发。侧坐，草映着身子，人几乎和岸长在一起。' },
+        { title: '路人借问遥招手 · 怕得鱼惊不应人', body: '借问是问路。遥招手，不应人。怕的不是生人，是鱼。' },
+        { title: '艺术特色', body: '不写钓到没有。把孩子的认真，写成对一条还没出现的鱼的礼貌。' },
+        { title: '朗读要点', body: '前两句轻，侧坐要稳。<br>「遥招手」做动作，末句「不应人」闭住。' }
+      ]
+    },
+    {
+      id: 'jiang-xue',
+      placeId: 'yongzhou',
+      title: '江雪',
+      dynasty: '唐',
+      form: '五言绝句',
+      grade: 2,
+      volume: '上',
+      authorId: 'liuzongyuan',
+      lines: ['千山鸟飞绝', '万径人踪灭', '孤舟蓑笠翁', '独钓寒江雪'],
+      gloss: ['绝 · 尽，没有了', '蓑笠 · 蓑衣和斗笠'],
+      art: { src: 'assets/jiang-xue.jpeg', size: '118% auto', position: '48% 46%' },
+      notes: [
+        { title: '创作背景', body: '柳宗元贬居永州时所作。千山无鸟，万径无人，只剩孤舟上一个蓑笠翁。冷是湘南的冬，也是一个人的位置。' },
+        { title: '千山鸟飞绝 · 万径人踪灭', body: '山和径先被掏空。绝、灭，两个字把世界减到只剩白。' },
+        { title: '孤舟蓑笠翁 · 独钓寒江雪', body: '人极小，钓的是雪。孤和独重复，不是强调收获，是强调还在。' },
+        { title: '艺术特色', body: '二十字，由大到小：山、径、舟、翁。柳宗元把贬所写成一张空白，人是那一点墨。' },
+        { title: '朗读要点', body: '前两句要空，绝、灭收住。<br>后两句更慢，「独钓」轻轻落下，像雪。' }
+      ]
+    },
+    {
+      id: 'fude-guyuan-cao',
+      placeId: 'changan',
+      title: '赋得古原草送别',
+      dynasty: '唐',
+      form: '五言',
+      grade: 2,
+      volume: '下',
+      authorId: 'baijuyi',
+      lines: ['离离原上草', '一岁一枯荣', '野火烧不尽', '春风吹又生'],
+      gloss: ['离离 · 草长得很盛', '枯荣 · 枯萎与茂盛'],
+      art: { src: 'assets/fude-guyuan-cao.jpeg', size: '118% auto', position: '38% 72%' },
+      notes: [
+        { title: '创作背景', body: '白居易少年应考之作，课文节选前四句。古原上的草，一年一枯荣；火烧不尽，春风一来又生。送别之前，先把生命说完。' },
+        { title: '离离原上草 · 一岁一枯荣', body: '离离是盛。枯荣是一年里的两面。草被写成一种会回来的东西。' },
+        { title: '野火烧不尽 · 春风吹又生', body: '烧不尽，是不服。吹又生，是接着。没有把道理写在字面上，生命自己站起来。' },
+        { title: '艺术特色', body: '赋得是命题。白居易把送别的题目，先写成原上草的韧性。后世人记住的，往往只是这四句。' },
+        { title: '朗读要点', body: '前两句铺开，荣字稍扬。<br>「烧不尽」有力，「吹又生」再起来。' }
+      ]
+    },
+    {
+      id: 'minnong-yi',
+      placeId: 'jiangnan',
+      title: '悯农（其一）',
+      dynasty: '唐',
+      form: '五言绝句',
+      grade: 2,
+      volume: '下',
+      authorId: 'lishen',
+      lines: ['春种一粒粟', '秋收万颗子', '四海无闲田', '农夫犹饿死'],
+      gloss: ['粟 · 谷子', '犹 · 仍然'],
+      art: { src: 'assets/minnong-yi.jpeg', size: '118% auto', position: '44% 48%' },
+      notes: [
+        { title: '创作背景', body: '李绅《悯农》二首的第一首。春种秋收，田没有闲着，农夫却仍会饿死。劳动的账，和社会的账，对不上。' },
+        { title: '春种一粒粟 · 秋收万颗子', body: '一粒变成万颗，是土地的本事。数字先让人放心。' },
+        { title: '四海无闲田 · 农夫犹饿死', body: '无闲田，该够吃。犹饿死，不够。转折压在一个「犹」字上。' },
+        { title: '艺术特色', body: '前两句丰收，后两句断粮。没有议论，只把两本账并排放着。' },
+        { title: '朗读要点', body: '前两句可以亮。<br>后两句沉下去，「犹饿死」不要喊，要问。' }
+      ]
+    },
+    {
+      id: 'zhou-ye-shu-suo-jian',
+      placeId: 'jiangnan',
+      title: '舟夜书所见',
+      dynasty: '清',
+      form: '五言绝句',
+      grade: 2,
+      volume: '下',
+      authorId: 'zhashenxing',
+      lines: ['月黑见渔灯', '孤光一点萤', '微微风簇浪', '散作满河星'],
+      gloss: ['簇 · 聚起，吹起', '散作 · 散开成为'],
+      art: { src: 'assets/zhou-ye-shu-suo-jian.jpeg', size: '118% auto', position: '48% 50%' },
+      notes: [
+        { title: '创作背景', body: '查慎行夜里坐船，看见渔灯。月黑，灯像萤；风一来，灯碎在浪上，变成满河的星。所见很小，夜被它点亮了。' },
+        { title: '月黑见渔灯 · 孤光一点萤', body: '月黑，所以灯显。一点萤，是缩小：河上的灯，被说成草里的虫。' },
+        { title: '微微风簇浪 · 散作满河星', body: '风很小，浪却把光打碎。萤变成星，夜从一点变成一片。' },
+        { title: '艺术特色', body: '全是光的变化。查慎行不写船，不写人，只让一盏灯完成一次散步。' },
+        { title: '朗读要点', body: '前两句暗，萤字轻。<br>后两句散开，「满河星」稍亮，却仍是夜里的亮。' }
+      ]
     }
   ],
 
@@ -864,7 +1358,7 @@ window.CATALOG = {
       portrait: 'assets/portrait.jpeg',
       seal: ['诗', '仙', '之', '作'],
       desc: '唐代伟大的浪漫主义诗人，被后世誉为<b>「诗仙」</b>。祖籍陇西成纪，生于碎叶城，五岁随父迁居绵州昌隆（今四川江油）。其诗想象奇绝、气势磅礴，善用夸张与神话，杜甫赞其「笔落惊风雨，诗成泣鬼神」。',
-      works: '《静夜思》《将进酒》《望庐山瀑布》《夜宿山寺》《望天门山》'
+      works: '《静夜思》《赠汪伦》《古朗月行》《望庐山瀑布》《夜宿山寺》'
     },
     {
       id: 'liuyuxi',
@@ -990,6 +1484,103 @@ window.CATALOG = {
       seal: ['诗', '佛', '之', '作'],
       desc: '盛唐山水田园诗的代表，太原祁人，后迁蒲州。诗画一体，被称<b>诗佛</b>。早年在长安写重阳思亲，一句「每逢佳节倍思亲」从此属于所有作客的人。',
       works: '《九月九日忆山东兄弟》《山居秋暝》《使至塞上》《送元二使安西》'
+    },
+    {
+      id: 'luobinwang',
+      name: '骆宾王',
+      dates: '约 640 — 684 ｜ 字观光，婺州义乌人',
+      portrait: 'assets/portrait-luobinwang.jpeg',
+      seal: ['义', '乌', '之', '作'],
+      desc: '初唐四杰之一。七岁作《咏鹅》，后来以骈文、长诗名世。诗文气盛，起点却是乡里一塘白鹅。',
+      works: '《咏鹅》《帝京篇》《在狱咏蝉》'
+    },
+    {
+      id: 'yuefu',
+      name: '汉乐府',
+      dates: '汉 · 乐府民歌',
+      seal: ['汉', '乐', '府', '歌'],
+      desc: '两汉乐府采集的民歌。没有署名的诗人，只有可唱的句子。《江南》以采莲和鱼戏，把方向唱成快乐。',
+      works: '《江南》《长歌行》《陌上桑》'
+    },
+    {
+      id: 'yiming',
+      name: '佚名',
+      dates: '唐 · 作者失考',
+      seal: ['佚', '名', '之', '作'],
+      desc: '姓名没有留下来，诗却进了课文。《画》用远看、近听、春去、人来四步，让孩子自己猜出谜底。',
+      works: '《画》'
+    },
+    {
+      id: 'lishen',
+      name: '李绅',
+      dates: '772 — 846 ｜ 字公垂，亳州人',
+      portrait: 'assets/portrait-lishen.jpeg',
+      seal: ['悯', '农', '之', '作'],
+      desc: '中唐诗人，与元稹、白居易交好。传世最广的是两首《悯农》：一写粒粒辛苦，一写田有余而人犹饥。',
+      works: '《悯农二首》'
+    },
+    {
+      id: 'liqiao',
+      name: '李峤',
+      dates: '约 645 — 714 ｜ 字巨山，赵州人',
+      portrait: 'assets/portrait-liqiao.jpeg',
+      seal: ['咏', '物', '之', '作'],
+      desc: '初唐诗人，与苏味道并称。善咏物，《风》不写风的形状，只写风做过的事：落叶、开花、起浪、斜竹。',
+      works: '《风》《汾阴行》'
+    },
+    {
+      id: 'jiadao',
+      name: '贾岛',
+      dates: '779 — 843 ｜ 字浪仙，范阳人',
+      portrait: 'assets/portrait-jiadao.jpeg',
+      seal: ['推', '敲', '之', '作'],
+      desc: '中唐苦吟诗人。曾为僧，后还俗。一字不肯轻易放过，《寻隐者不遇》把找不着的人，写成云深的山。',
+      works: '《寻隐者不遇》《题李凝幽居》《剑客》'
+    },
+    {
+      id: 'baijuyi',
+      name: '白居易',
+      dates: '772 — 846 ｜ 字乐天，号香山居士',
+      portrait: 'assets/portrait-baijuyi.jpeg',
+      seal: ['乐', '天', '之', '作'],
+      desc: '中唐诗人，主张诗要让人读懂。写儿童、写原上草、写长恨与琵琶，都能把深的意思说成浅的句子。',
+      works: '《池上》《赋得古原草送别》《琵琶行》《长恨歌》'
+    },
+    {
+      id: 'tangyin',
+      name: '唐寅',
+      dates: '1470 — 1524 ｜ 字伯虎，号六如居士',
+      portrait: 'assets/portrait-tangyin.jpeg',
+      seal: ['六', '如', '之', '作'],
+      desc: '明吴中才子，诗书画并擅。题画常把物写成人。《画鸡》里那一声啼，叫醒的是千门万户。',
+      works: '《画鸡》《桃花庵歌》'
+    },
+    {
+      id: 'hulingneng',
+      name: '胡令能',
+      dates: '唐 · 生卒年不详，圃田人',
+      portrait: 'assets/portrait-hulingneng.jpeg',
+      seal: ['圃', '田', '之', '作'],
+      desc: '中唐隐士，传曾为手工匠人。诗作留存很少，《小儿垂钓》把孩子的认真，写成对一条还没出现的鱼的礼貌。',
+      works: '《小儿垂钓》'
+    },
+    {
+      id: 'liuzongyuan',
+      name: '柳宗元',
+      dates: '773 — 819 ｜ 字子厚，河东人',
+      portrait: 'assets/portrait-liuzongyuan.jpeg',
+      seal: ['柳', '州', '之', '作'],
+      desc: '中唐文学家，与韩愈并称。贬永州十年，山水记与诗都冷而清。《江雪》把世界减到孤舟一点。',
+      works: '《江雪》《渔翁》《小石潭记》'
+    },
+    {
+      id: 'zhashenxing',
+      name: '查慎行',
+      dates: '1650 — 1727 ｜ 字悔余，号初白',
+      portrait: 'assets/portrait-zhashenxing.jpeg',
+      seal: ['初', '白', '之', '作'],
+      desc: '清初诗人，浙江海宁人。诗宗宋，善写眼前小景。《舟夜书所见》让一盏渔灯，在风里散成满河星。',
+      works: '《舟夜书所见》'
     }
   ]
 };

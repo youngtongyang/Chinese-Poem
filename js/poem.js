@@ -46,7 +46,7 @@ function fitStage(poem) {
 }
 
 function renderPoem(poem, author, place) {
-  const isLushi = poem.lines.length >= 8;
+  const isLushi = poem.lines.length >= 6;
   document.title = poem.title + ' · ' + poem.dynasty + '·' + author.name;
   fitStage(poem);
 
